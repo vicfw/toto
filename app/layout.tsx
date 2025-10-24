@@ -1,16 +1,11 @@
 import Providers from "./providers";
 import "./globals.css";
 
-import { Roboto } from "next/font/google";
 export const metadata = {
   title: "BetWinner",
   description: "Next.js + React Query Example",
 };
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"], 
-  display: "swap",
-});
+
 export default function RootLayout({
   children,
 }: {
@@ -18,10 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fa" dir="rtl">
-      <body className={roboto.className}>
-        <Providers>
-          {children}
-        </Providers>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lateef:wght@200;300;400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
