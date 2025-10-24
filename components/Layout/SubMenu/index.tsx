@@ -2,7 +2,7 @@ export default function SubMenu() {
   return (
     <>
       <nav className="fixed bottom-0 w-full px-2.5 bg-white text-[#808080] fill-[#808080]">
-        <ul className="flex h-full gap-1 text-base font-semibold text-center leading-6 text-nowrap">
+        <ul className="flex h-full items-center gap-1 text-xs font-semibold text-center leading-6 text-nowrap">
           <li className="flex flex-col items-center w-full h-full pt-2.5">
             <svg
               data-v-309feef9=""

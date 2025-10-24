@@ -8,7 +8,7 @@ interface HandaleSelectedProps {
 }
 export default function HandaleSelected({ handleReset, handleRandom, Object, matchesMap, allSelected, selectedBets }: HandaleSelectedProps) {
   return (
-    <div className="shadow-custom bg-white p-2.5  flex gap-2">
+    <div className="shadow-custom bg-white p-2.5  flex gap-2 ">
       <button onClick={handleReset} className="shrink-0">
         <div className="py-1 px-2 rounded-sm bg-sky-blue min-w-11 min-h-11 flex justify-center items-center">
           <svg viewBox="0 0 448 512" focusable="false" className="size-5">
@@ -32,13 +32,13 @@ export default function HandaleSelected({ handleReset, handleRandom, Object, mat
         </div>
       </button>
 
-      <div className="w-full flex items-center justify-between rounded-md bg-gradient-to-l from-sky-blue-light text-xs pr-3 p-1">
-        <div className="flex flex-col text-[11px]">
+      <div className="w-full shrink flex items-center justify-between rounded-md bg-gradient-to-l from-sky-blue-light text-xs pr-3 p-1 text-nowrap ">
+        <div className="flex flex-col text-[9px]">
           <span>انتخاب شده</span>
-          <span className="font-medium text-[15px]">{`${Object.values(selectedBets).filter(Boolean).length} / ${Object.values(matchesMap).flat().length}`}</span>
+          <span className="font-medium text-sm">{`${Object.values(selectedBets).filter(Boolean).length} / ${Object.values(matchesMap).flat().length}`}</span>
         </div>
 
-        <button disabled={!allSelected} className={` h-full rounded-md px-10 ${allSelected ? "bg-green-500" : "bg-warm-gold cursor-not-allowed"}`}>
+        <button disabled={!allSelected} className={` h-full max-[375px]:basis-2/3  rounded-md min-[375px]:px-10 ${allSelected ? "bg-green-500" : "bg-warm-gold cursor-not-allowed"}`}>
           <span>به برگه شرط بروید</span>
         </button>
       </div>

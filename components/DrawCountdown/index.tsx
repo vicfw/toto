@@ -55,10 +55,10 @@ export default function DrawCountdown() {
             <div className="flex text-2xl gap-0.5">
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5">
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-md">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.seconds)[1]}</span>
                   </div>
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-md">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.seconds)[0]}</span>
                   </div>
                 </div>
@@ -67,10 +67,10 @@ export default function DrawCountdown() {
               <span>:</span>
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5 ">
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.minutes)[1]}</span>
                   </div>
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.minutes)[0]}</span>
                   </div>
                 </div>
@@ -79,10 +79,10 @@ export default function DrawCountdown() {
               <span>:</span>
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5">
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.hours)[1]}</span>
                   </div>
-                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
+                  <div className="bg-deep-blue-light px-[0.35rem] rounded-sm w-[24px]">
                     <span>{formatNumber(timeLeft.hours)[0]}</span>
                   </div>
                 </div>
@@ -97,7 +97,7 @@ export default function DrawCountdown() {
           <div className="bg-sky-blue-dark rounded-lg w-full py-2 text-center">
             <button>فهرست فرم ها</button>
           </div>
-          <Link href="/" className="pt-3 underline underline-offset-1">اطلاعات توتو</Link>
+          <Link href="/" className="pt-3 underline underline-offset-1 text-sm">اطلاعات توتو</Link>
         </div>
       </div>
     </>
