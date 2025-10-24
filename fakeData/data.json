@@ -1,0 +1,145 @@
+{
+    "leagues": [
+      {
+        "name": "انگلیس لیگ برتر",
+        "matches": [
+          {
+            "match_id": 1,
+            "date": "25/10",
+            "time": "19:30",
+            "teams": [
+              {
+                "name": "چلسی",
+                "logo": "https://betwinner.com/sfiles/logo_teams/4d19a56f7c6e34c48f0f5e0f07bf9ac5.png"
+              },
+              {
+                "name": "ساندرلند",
+                "logo": "https://betwinner.com/sfiles/logo_teams/2004.png"
+              }
+            ],
+            "markets": {
+              "1": "76%",
+              "X": "17%",
+              "2": "7%"
+            }
+          },
+          {
+            "match_id": 2,
+            "date": "25/10",
+            "time": "22:00",
+            "teams": [
+              {
+                "name": "نیوکاسل یونایتد",
+                "logo": "https://betwinner.com/sfiles/logo_teams/16f4b9522ff68b79b088d4c9da0939ee.png"
+              },
+              {
+                "name": "فولام",
+                "logo": "https://betwinner.com/sfiles/logo_teams/1986.png"
+              }
+            ],
+            "markets": {
+              "1": "68%",
+              "X": "20%",
+              "2": "12%"
+            }
+          },
+          {
+            "match_id": 3,
+            "date": "25/10",
+            "time": "22:00",
+            "teams": [
+              {
+                "name": "منچستر یونایتد",
+                "logo": "https://betwinner.com/sfiles/logo_teams/1996.png"
+              },
+              {
+                "name": "برایتون",
+                "logo": "https://betwinner.com/sfiles/logo_teams/2026.png"
+              }
+            ],
+            "markets": {
+              "1": "53%",
+              "X": "20%",
+              "2": "27%"
+            }
+          }
+        ]
+      },
+      {
+        "name": "آلمان بوندسلیگا",
+        "matches": [
+          {
+            "match_id": 4,
+            "date": "26/10",
+            "time": "00:30",
+            "teams": [
+              {
+                "name": "برنتفورد",
+                "logo": "https://betwinner.com/sfiles/logo_teams/2064.png"
+              },
+              {
+                "name": "لیورپول",
+                "logo": "https://betwinner.com/sfiles/logo_teams/d3916206204ffc91b0471ff9484066d6.png"
+              }
+            ],
+            "markets": {
+              "1": "65%",
+              "X": "19%",
+              "2": "16%"
+            }
+          }
+        ]
+      },
+      {
+        "name": "اسپانیا-لالیگا",
+        "matches": [
+          {
+            "match_id": 5,
+            "date": "25/10",
+            "time": "19:45",
+            "teams": [
+              {
+                "name": "اسپانیول",
+                "logo": "https://betwinner.com/sfiles/logo_teams/24a303cdc0a24b99485aebc26ff13f55.png"
+              },
+              {
+                "name": "الچه",
+                "logo": "https://betwinner.com/sfiles/logo_teams/3482.png"
+              }
+            ],
+            "markets": {
+              "1": "53%",
+              "X": "25%",
+              "2": "22%"
+            }
+          }
+        ]
+      },
+      {
+        "name": "ایتالیا سری آ",
+        "matches": [
+          {
+            "match_id": 6,
+            "date": "26/10",
+            "time": "00:35",
+            "teams": [
+              {
+                "name": "ناپولی",
+                "logo": "https://betwinner.com/sfiles/logo_teams/b71fc7ce7b35cdc0b945d7db27feb62b.png"
+              },
+              {
+                "name": "اینترناسیونال میلانو",
+                "logo": "https://betwinner.com/sfiles/logo_teams/284e78c3cca0ded862fbbe1dc58cc5b4.png"
+              }
+            ],
+            "markets": {
+              "1": "29%",
+              "X": "28%",
+              "2": "43%"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
