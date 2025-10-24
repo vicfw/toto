@@ -6,7 +6,16 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = () => setIsOpen(!isOpen);
-
+    function formatDateTime(dateString) {
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const year = date.getFullYear();
+        const hours = String(date.getHours()).padStart(2, "0");
+        const minutes = String(date.getMinutes()).padStart(2, "0");
+      
+        return `${year}/${month}/${day} (${hours}:${minutes})`;
+      }
     return (
         <div>
             <ul className="bg-cool-gray px-2.5 py-[3px]">
@@ -59,7 +68,8 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                                     <span className="text-xs"> {(index + 1)} </span>
                                                 </div>
                                                 <span className="text-sm text-[#808080]">
-                                                    25/10/2025 (22:00)
+                                                    {/* 25/10/2025 (22:00) */}
+                                                    {formatDateTime(match.start_time)}
                                                 </span>
                                                 <button className="mr-auto">
                                                     <span
@@ -78,16 +88,6 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                                     </span>
                                                 </button>
                                             </div>
-                                            {/* {["1", "X", "2"].map((betOption) => (
-                                                    <button
-                                                        key={betOption}
-                                                        onClick={() => onSelectBet(match.id, betOption)}
-                                                        className={`flex-1 p-2 rounded-md border ${selectedBets[match.id] === betOption ? "bg-green-500 text-white" : "bg-gray-100"
-                                                            }`}
-                                                    >
-                                                        {betOption}
-                                                    </button>
-                                                ))} */}
                                             <ul className="font-bold text-sm space-y-0.5">
                                                 <li className="ml-2" > {match.home_team} </li>
                                                 <li className="ml-2" > {match.away_team} </li>
@@ -104,18 +104,6 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                                     </li>
                                                 ))}
 
-                                                {/* <li className="bg-sky-blue-light px-2 py-0.5 rounded-lg">
-                                                        <button className="flex flex-col justify-between items-center space-y-0.5 w-full">
-                                                            <span>1</span>
-                                                            <span>65%</span>
-                                                        </button>
-                                                    </li>
-                                                    <li className="bg-sky-blue-light px-2 py-0.5 rounded-lg">
-                                                        <button className="flex flex-col justify-between items-center space-y-0.5 w-full">
-                                                            <span>1</span>
-                                                            <span>65%</span>
-                                                        </button>
-                                                    </li> */}
                                             </ul>
                                         </div>
                                    
