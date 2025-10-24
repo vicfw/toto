@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
 import { getTournamentById, Match, Tournament } from "@/src/lib/getTournamentById";
-import Loader from "./abb/Loader";
+import Loader from "./App/Loader";
 
 export default function TournamentsClient() {
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [matchesMap, setMatchesMap] = useState<{ [key: number]: Match[] }>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedBets, setSelectedBets] = useState<{ [matchId: number]: "1" | "X" | "2" }>({});
+  const [selectedBets, setSelectedBets] = useState<{ [matchId: number]: "1" | "X" | "2" | undefined }>({});
 
   useEffect(() => {
     const fetchData = async () => {

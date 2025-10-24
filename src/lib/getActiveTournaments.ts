@@ -6,6 +6,12 @@ export interface TournamentFile {
   url: string;
 }
 
+export interface Prizes {
+  first: { amount: string; wins_required: number; label: string };
+  second: { amount: string; wins_required: number; label: string };
+  third: { amount: string; wins_required: number; label: string };
+}
+
 export interface Tournament {
   id: number;
   title: string;
@@ -20,6 +26,8 @@ export interface Tournament {
   second_prize_amount: string;
   third_prize_amount: string;
   files: TournamentFile[];
+
+  prizes: Prizes;
 }
 
 export interface ActiveTournamentsResponse {
@@ -29,5 +37,15 @@ export interface ActiveTournamentsResponse {
 
 export async function getActiveTournaments(): Promise<Tournament[]> {
   const { data } = await api.get<ActiveTournamentsResponse>("/games/active-tournaments");
-  return data.data; 
+
+  const tournamentsWithPrizes: Tournament[] = data.data.map((tournament) => ({
+    ...tournament,
+    prizes: tournament.prizes || {
+      first: { amount: tournament.first_prize_amount, wins_required: 0, label: "" },
+      second: { amount: tournament.second_prize_amount, wins_required: 0, label: "" },
+      third: { amount: tournament.third_prize_amount, wins_required: 0, label: "" },
+    },
+  }));
+
+  return tournamentsWithPrizes;
 }
