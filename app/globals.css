@@ -86,13 +86,3 @@ body {
   font-family: var(--font-family);
 }
 
-:root {
-  --color-primary: #093453;        /* رنگ اصلی پرقدرت */
-  --color-primary-dark: #061f2b;   /* برای متن روی پس‌زمینه روشن یا هدر تاریک */
-  --color-primary-light: #12456a;  /* برای hover یا مرز دکمه‌ها */
-  --color-accent: #1a5d8f;         /* CTA، لینک‌ها و هایلایت‌ها */
-  --color-bg-soft: #e3edf4;        /* پس‌زمینه روشن و آرام */
-  --color-bg-medium: #c3d1e0;      /* کارت‌ها و بخش‌های میانی */
-  --color-text-dark: #041e2c;      /* متن روی پس‌زمینه روشن */
-  --color-text-light: #ffffff;     /* متن روی رنگ‌های اصلی و تیره */
-}
