@@ -1,15 +1,12 @@
 import Providers from "./providers";
 import "./globals.css";
 
-
-import { Roboto } from "next/font/google";
 import SubMenu from "@/components/Layout/SubMenu";
 
 export const metadata = {
   title: "BetWinner",
   description: "Next.js + React Query Example",
 };
-
 
 export default function RootLayout({
   children,
@@ -25,10 +22,11 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <div className=" pb-[80px">
+        <div className="pb-[80px]">
           <Providers>{children}</Providers>
+          {/* <SubMenu /> */}
         </div>
       </body>
-    </html >
+    </html>
   );
 }
