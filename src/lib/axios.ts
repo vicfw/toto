@@ -7,7 +7,7 @@ export const api = axios.create({
   },
 });
 
-// مثال interceptor برای توکن
+
 api.interceptors.request.use((config) => {
   const token = typeof window !== "undefined" ? localStorage.getItem("token") : null;
   if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;

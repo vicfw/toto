@@ -29,5 +29,5 @@ export interface ActiveTournamentsResponse {
 
 export async function getActiveTournaments(): Promise<Tournament[]> {
   const { data } = await api.get<ActiveTournamentsResponse>("/games/active-tournaments");
-  return data.data; // فقط آرایه‌ی مسابقات را برمی‌گردونیم
+  return data.data; 
 }
