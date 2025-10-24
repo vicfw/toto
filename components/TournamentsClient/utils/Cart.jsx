@@ -100,8 +100,8 @@ export default function Cart({
                                                     onClick={() => onSelectBet(match.id, betOption)}
                                                     key={betOption}
                                                     className={` px-2 py-0.5 rounded-lg ${selectedBets[match.id] === betOption
-                                                            ? "bg-ice-blue"
-                                                            : "bg-sky-blue-light"
+                                                            ? "bg-sky-blue-light"
+                                                            : "bg-ice-blue"
                                                         }`}
                                                 >
                                                     <button className="text-center w-full">
