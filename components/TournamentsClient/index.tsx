@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
 import { getTournamentById, Match, Tournament } from "@/src/lib/getTournamentById";
-import Loader from "./App/Loader";
+import Loader from "../../components/App/Loader";
 
 export default function TournamentsClient() {
   const [tournaments, setTournaments] = useState<Tournament[]>([]);

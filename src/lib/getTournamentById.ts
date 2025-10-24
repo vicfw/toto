@@ -25,7 +25,6 @@ export interface Match {
   formatted_end_time: string;
   time_remaining: string;
 
-  // اضافه کردن درصدها برای شرط‌بندی
   percent_1: number;
   percent_X: number;
   percent_2: number;
@@ -75,7 +74,6 @@ export interface TournamentResponse {
 export async function getTournamentById(id: number): Promise<{ tournament: Tournament; matches: Match[] }> {
   const { data } = await api.get<TournamentResponse>(`/games/tournament/${id}`);
 
-  // اضافه کردن درصدهای پیش‌فرض برای هر مسابقه (اگر API آن‌ها را نمی‌دهد)
   const matchesWithPercent: Match[] = data.matches.map((match) => ({
     ...match,
     percent_1: 33,

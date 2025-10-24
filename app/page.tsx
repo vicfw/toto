@@ -1,6 +1,6 @@
 import { HydrationBoundary, dehydrate, QueryClient } from "@tanstack/react-query";
 import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
-import TournamentsClient from "@/components/TournamentsClient";
+import TournamentsClient from "@/components/TournamentsClient/index";
 
 export default async function Page() {
   const queryClient = new QueryClient();
