@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
-import { getTournamentById, Match, Tournament } from "@/src/lib/getTournamentById";
+import {
+  getTournamentById,
+  Match,
+  Tournament,
+} from "@/src/lib/getTournamentById";
 import Loader from "../../components/App/Loader";
 import Cart from "./utils/Cart";
 import HandaleSelected from "./utils/HandaleSelected";
@@ -13,8 +17,9 @@ export default function TournamentsClient() {
   const [matchesMap, setMatchesMap] = useState<{ [key: number]: Match[] }>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedBets, setSelectedBets] = useState<{ [matchId: number]: "1" | "X" | "2" | undefined }>({});
-
+  const [selectedBets, setSelectedBets] = useState<{
+    [matchId: number]: "1" | "X" | "2" | undefined;
+  }>({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,31 +59,44 @@ export default function TournamentsClient() {
 
   const handleRandom = () => {
     const newBets: typeof selectedBets = {};
-    Object.values(matchesMap).flat().forEach((match) => {
-      const options: ("1" | "X" | "2")[] = ["1", "X", "2"];
-      newBets[match.id] = options[Math.floor(Math.random() * options.length)];
-    });
+    Object.values(matchesMap)
+      .flat()
+      .forEach((match) => {
+        const options: ("1" | "X" | "2")[] = ["1", "X", "2"];
+        newBets[match.id] = options[Math.floor(Math.random() * options.length)];
+      });
     setSelectedBets(newBets);
   };
 
-  const allSelected = Object.values(matchesMap).flat().every(match => selectedBets[match.id]);
+  const allSelected = Object.values(matchesMap)
+    .flat()
+    .every((match) => selectedBets[match.id]);
 
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="">
+    <div>
       <DrawCountdown />
-      {tournaments.map((tournament) => (
-        <Cart
-          key={tournament.id}
-          tournament={tournament}
-          matches={matchesMap[tournament.id]}
-          selectedBets={selectedBets}
-          onSelectBet={handleBetSelect}
-        />
-      ))}
-      <HandaleSelected handleReset={handleReset} handleRandom={handleRandom} Object={Object} matchesMap={matchesMap} allSelected={allSelected} selectedBets={selectedBets} />
+      <ul className="bg-cool-gray p-2.5 space-y-1.5">
+        {tournaments.map((tournament) => (
+          <Cart
+            key={tournament.id}
+            tournament={tournament}
+            matches={matchesMap[tournament.id]}
+            selectedBets={selectedBets}
+            onSelectBet={handleBetSelect}
+          />
+        ))}
+      </ul>
+      <HandaleSelected
+        handleReset={handleReset}
+        handleRandom={handleRandom}
+        Object={Object}
+        matchesMap={matchesMap}
+        allSelected={allSelected}
+        selectedBets={selectedBets}
+      />
     </div>
   );
 }

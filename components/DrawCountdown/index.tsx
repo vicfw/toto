@@ -94,7 +94,7 @@ export default function DrawCountdown() {
             <span> شرط پذیرفته شد</span>
             <span> تا 21:30 25/10/2025</span>
           </div>
-          <div className="bg-sky-blue-dark rounded-lg w-full py-2 text-center text-lg">
+          <div className="bg-sky-blue-dark rounded-lg w-full py-2 text-center">
             <button>فهرست فرم ها</button>
           </div>
           <Link href="/" className="pt-3 underline underline-offset-1">اطلاعات توتو</Link>
