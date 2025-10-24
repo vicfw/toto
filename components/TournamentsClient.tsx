@@ -62,7 +62,6 @@ export default function TournamentsClient() {
             <p>🏆 جایزه اول: {Number(tournament.first_prize_amount).toLocaleString("fa-IR")} تومان</p>
           </div>
 
-          {/* مسابقات */}
           <div className="mt-4">
             <h3 className="font-semibold text-gray-800 mb-2">مسابقات:</h3>
             {matchesMap[tournament.id]?.map((match) => (
@@ -70,7 +69,6 @@ export default function TournamentsClient() {
                 <p className="font-medium">{match.home_team} 🆚 {match.away_team}</p>
                 <p className="text-xs text-gray-500">لیگ: {match.league.name} | شروع: {new Date(match.start_time).toLocaleString("fa-IR")}</p>
 
-                {/* دکمه‌های شرط */}
                 <div className="flex mt-2 gap-2">
                   {(["1", "X", "2"] as const).map((bet) => {
                     const percent = bet === "1" ? match.percent_1 : bet === "X" ? match.percent_X : match.percent_2;
