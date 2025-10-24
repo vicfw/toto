@@ -76,7 +76,7 @@ export default function TournamentsClient() {
         />
       ))}
 
-      <div className="shadow-[0_0px_0.3125rem_rgba(0,0,0,0.1)] bg-white p-2.5  flex gap-2">
+      <div className="shadow-custom bg-white p-2.5  flex gap-2">
         <button onClick={handleReset} className="shrink-0">
           {/* با فشار دادن این دکمه انتخابها ریست شود  */}
           <div className="py-1 px-2 rounded-sm bg-sky-blue min-w-11 min-h-11 flex justify-center items-center">

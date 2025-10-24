@@ -9,8 +9,8 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
 
     return (
         <div>
-            <ul className="bg-cool-gray p-2.5">
-                <li className="bg-white rounded-lg shadow-md">
+            <ul className="bg-cool-gray px-2.5 py-[3px]">
+                <li className="bg-white rounded-lg">
                     <div className="flex flex-col">
                         <button
                             onClick={toggleOpen}
@@ -26,10 +26,10 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                 >
                                     <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
                                 </svg>
-                                <span className="pr-3">{tournament?.title}</span>
+                                <span className="pr-3 text-lg font-medium">{tournament?.title}</span>
                             </div>
                             <span
-                                className={`px-2 min-w-10 min-h-10 flex justify-center items-center transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"
+                                className={`px-2 min-w-12 min-h-12 flex justify-center items-center transition-transform duration-300 ${isOpen ? "rotate-180" : "rotate-0"
                                     }`}
                             >
                                 <svg
@@ -37,7 +37,7 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                     focusable="false"
                                     role="img"
                                     data-v-ico="common|angle"
-                                    className="size-2.5"
+                                    className="size-3"
                                 >
                                     <path d="M15.2 18.6.4 4c-.5-.5-.5-1.1 0-1.6l1.9-2c.5-.5 1.3-.5 1.7 0l12 11.8L28 .4c.4-.5 1.2-.5 1.7 0l2 2c.4.5.4 1 0 1.6L17 18.6c-.5.5-1.3.5-1.7 0Z"></path>
                                 </svg>
@@ -49,12 +49,13 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                 }`}
                         >
                             <ul className="p-2 space-y-1.5">
-                                <li className="p-2 rounded-lg shadow-[0_0px_0.3125rem_rgba(0,0,0,0.1)]">
-                                    {matches?.map((match, index) => (
+                            {matches?.map((match, index) => ( 
+                                <li  key={match.id} className="p-2 rounded-lg shadow-custom">
+                                  
 
-                                        <div key={match.id} className="space-y-2.5">
+                                        <div className="space-y-2.5">
                                             <div className="flex items-center w-full">
-                                                <div className="aspect-square h-4 rounded-full bg-sky-blue-light shrink-0 flex items-center justify-center ml-1">
+                                                <div className="aspect-square h-4 rounded-full bg-sky-blue-light shrink-0 flex items-center justify-center ml-1 font-semibold">
                                                     <span className="text-xs"> {(index + 1)} </span>
                                                 </div>
                                                 <span className="text-sm text-[#808080]">
@@ -87,14 +88,14 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                                         {betOption}
                                                     </button>
                                                 ))} */}
-                                            <ul className="font-bold text-xs space-y-0.5">
+                                            <ul className="font-bold text-sm space-y-0.5">
                                                 <li className="ml-2" > {match.home_team} </li>
                                                 <li className="ml-2" > {match.away_team} </li>
                                             </ul>
 
                                             <ul className="grid grid-cols-3 text-[13px] gap-1.5">
                                                 {["1", "X", "2"].map((betOption) => (
-                                                    <li onClick={() => onSelectBet(match.id, betOption)} key={betOption} className={` px-2 py-1 rounded-lg ${selectedBets[match.id] === betOption ? "bg-ice-blue" : "bg-sky-blue-light"
+                                                    <li onClick={() => onSelectBet(match.id, betOption)} key={betOption} className={` px-2 py-0.5 rounded-lg ${selectedBets[match.id] === betOption ? "bg-ice-blue" : "bg-sky-blue-light"
                                                         }`}>
                                                         <button className="text-center w-full">
                                                             <span className="block">    {betOption}</span>
@@ -117,8 +118,8 @@ export default function Cart({ tournament, matches, selectedBets, onSelectBet })
                                                     </li> */}
                                             </ul>
                                         </div>
-                                    ))}
-                                </li>
+                                   
+                                </li> ))}
                             </ul>
                         </div>
                     </div>
