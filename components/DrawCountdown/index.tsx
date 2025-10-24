@@ -1,6 +1,41 @@
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function DrawCountdown() {
+  // تاریخ و زمان هدف شمارشگر (می‌توانید آن را به صورت داینامیک بگیرید)
+  const targetDate = new Date("2025-10-25T21:30:00");
+
+  const [timeLeft, setTimeLeft] = useState({
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = targetDate.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      const hours = Math.floor(diff / 1000 / 60 / 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      setTimeLeft({ hours, minutes, seconds });
+    };
+
+    updateCountdown(); // بلافاصله مقدار اولیه را تنظیم کن
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval); // پاک کردن interval هنگام unmount
+  }, []);
+
+  // تبدیل به دو رقمی برای نمایش
+  const formatNumber = (num: number) => String(num).padStart(2, "0");
   return (
     <>
       <div className="bg-deep-blue p-2.5 text-white ">
@@ -21,10 +56,10 @@ export default function DrawCountdown() {
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5">
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-md">
-                    <span>2</span>
+                    <span>{formatNumber(timeLeft.seconds)[1]}</span>
                   </div>
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-md">
-                    <span>8</span>
+                    <span>{formatNumber(timeLeft.seconds)[0]}</span>
                   </div>
                 </div>
                 <span className="text-sm"> ثانیه</span>
@@ -33,10 +68,10 @@ export default function DrawCountdown() {
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5 ">
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
-                    <span>7</span>
+                    <span>{formatNumber(timeLeft.minutes)[1]}</span>
                   </div>
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
-                    <span>8</span>
+                    <span>{formatNumber(timeLeft.minutes)[0]}</span>
                   </div>
                 </div>
                 <span className="text-sm">دقیفه</span>
@@ -45,10 +80,10 @@ export default function DrawCountdown() {
               <div className="flex flex-col items-center gap-0.5">
                 <div className="font-semibold  flex gap-0.5">
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
-                    <span>1</span>
+                    <span>{formatNumber(timeLeft.hours)[1]}</span>
                   </div>
                   <div className="bg-deep-blue-light px-[0.35rem] rounded-sm">
-                    <span>6</span>
+                    <span>{formatNumber(timeLeft.hours)[0]}</span>
                   </div>
                 </div>
                 <span className="text-sm">ساعت</span>
