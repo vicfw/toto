@@ -2,13 +2,14 @@ import Providers from "./providers";
 import "./globals.css";
 
 import { Roboto } from "next/font/google";
+import SubMenu from "@/components/Layout/SubMenu";
 export const metadata = {
   title: "BetWinner",
   description: "Next.js + React Query Example",
 };
 const roboto = Roboto({
   subsets: ["latin"],
-  weight: ["400", "500", "700"], 
+  weight: ["400", "500", "700"],
   display: "swap",
 });
 export default function RootLayout({
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="fa" dir="rtl">
       <body className={roboto.className}>
         <Providers>
-          {children}
+          <div className=" pb-[80px]">
+            {children}
+          </div>
+          <SubMenu />
         </Providers>
       </body>
     </html>
