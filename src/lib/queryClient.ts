@@ -7,7 +7,7 @@ export const createQueryClient = () =>
             queries: {
                 retry: 1,
                 refetchOnWindowFocus: false,
-                staleTime: 1000 * 60 * 2, // 2 دقیقه
+                staleTime: 1000 * 60 * 2, 
             },
             mutations: {
                 retry: 0,

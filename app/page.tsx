@@ -1,10 +1,19 @@
-import UsersClient from "@/components/UsersClient";
+import { HydrationBoundary, dehydrate, QueryClient } from "@tanstack/react-query";
+import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
+import TournamentsClient from "@/components/TournamentsClient";
 
-export default function Page() {
+export default async function Page() {
+  const queryClient = new QueryClient();
+
+  // prefetch سمت سرور
+  await queryClient.prefetchQuery({
+    queryKey: ["active-tournaments"],
+    queryFn: getActiveTournaments,
+  });
+
   return (
-    <main className="p-6">
-      <h1 className="text-xl font-bold mb-4">User List</h1>
-      <UsersClient />
-    </main>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <TournamentsClient />
+    </HydrationBoundary>
   );
 }
