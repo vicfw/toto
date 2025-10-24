@@ -2,6 +2,7 @@ import Providers from "./providers";
 import "./globals.css";
 
 import SubMenu from "@/components/Layout/SubMenu";
+
 export const metadata = {
   title: "BetWinner",
   description: "Next.js + React Query Example",
