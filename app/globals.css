@@ -51,8 +51,7 @@ body {
   --color-cool-gray-light: #e0e8ee;
   --color-cool-gray-dark: #9caab6;
 
-  --shadow-custom:   0 0px 0.3125rem rgba(0, 0, 0, 0.1);
-
+  --shadow-custom: 0 0px 0.3125rem rgba(0, 0, 0, 0.1);
 }
 :root {
   --color-white: #ffffff;
@@ -73,13 +72,8 @@ body {
 
   --color-cool-gray-light: #e0e8ee;
   --color-cool-gray-dark: #9caab6;
-
-
-
 }
-
 
 body {
   overflow-x: hidden;
 }
-

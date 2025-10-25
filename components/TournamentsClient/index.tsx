@@ -18,7 +18,7 @@ export default function TournamentsClient() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedBets, setSelectedBets] = useState<{
-    [matchId: number]: "1" | "X" | "2" | undefined;
+    [matchId: number]: ("1" | "X" | "2")[];
   }>({});
 
   useEffect(() => {
@@ -49,10 +49,24 @@ export default function TournamentsClient() {
   }, [selectedBets]);
 
   const handleBetSelect = (matchId: number, bet: "1" | "X" | "2") => {
-    setSelectedBets((prev) => ({
-      ...prev,
-      [matchId]: prev[matchId] === bet ? undefined : bet,
-    }));
+    setSelectedBets((prev) => {
+      const currentBets = prev[matchId] || [];
+      const isSelected = currentBets.includes(bet);
+
+      if (isSelected) {
+        // Remove the bet if it's already selected
+        return {
+          ...prev,
+          [matchId]: currentBets.filter((b) => b !== bet),
+        };
+      } else {
+        // Add the bet if it's not selected
+        return {
+          ...prev,
+          [matchId]: [...currentBets, bet],
+        };
+      }
+    });
   };
 
   const handleReset = () => setSelectedBets({});
@@ -63,21 +77,26 @@ export default function TournamentsClient() {
       .flat()
       .forEach((match) => {
         const options: ("1" | "X" | "2")[] = ["1", "X", "2"];
-        newBets[match.id] = options[Math.floor(Math.random() * options.length)];
+        // Randomly select 1-3 options for each match
+        const numSelections = Math.floor(Math.random() * 3) + 1;
+        const shuffled = options.sort(() => Math.random() - 0.5);
+        newBets[match.id] = shuffled.slice(0, numSelections);
       });
     setSelectedBets(newBets);
   };
 
   const allSelected = Object.values(matchesMap)
     .flat()
-    .every((match) => selectedBets[match.id]);
+    .every(
+      (match) => selectedBets[match.id] && selectedBets[match.id].length > 0
+    );
 
   if (loading) return <Loader />;
   if (error) return <p>{error}</p>;
 
   return (
     <div>
-      <DrawCountdown />
+      {/* <DrawCountdown /> */}
       <ul className="bg-cool-gray p-2.5 space-y-1.5">
         {tournaments.map((tournament) => (
           <Cart
