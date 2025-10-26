@@ -17,7 +17,7 @@ export default function HandaleSelected({
   return (
     <div className="shadow-custom bg-white p-2.5 flex gap-2">
       <button onClick={handleReset} className="shrink-0">
-        <div className="py-1 px-2 rounded-sm bg-[#093453] hover:bg-[#0d4a6b] transition-colors min-w-11 min-h-11 flex justify-center items-center">
+        <div className="py-1 px-2 rounded-sm bg-deep-blue hover:bg-[#0d4a6b] transition-colors min-w-11 min-h-11 flex justify-center items-center">
           <svg
             viewBox="0 0 448 512"
             focusable="false"
@@ -32,13 +32,9 @@ export default function HandaleSelected({
       </button>
 
       <button onClick={handleRandom} className="shrink-0">
-        <div className="py-1 px-2 rounded-sm bg-[#093453] hover:bg-[#0d4a6b] transition-colors min-w-11 min-h-11 flex justify-center items-center">
+        <div className="py-1 px-2 rounded-sm bg-deep-blue hover:bg-[#0d4a6b] transition-colors min-w-11 min-h-11 flex justify-center items-center">
           <svg
-            data-v-960f624a=""
             viewBox="0 0 15 13"
-            focusable="false"
-            role="img"
-            data-v-ico="common|random"
             className="size-5 text-white"
           >
             <path
@@ -63,7 +59,7 @@ export default function HandaleSelected({
           disabled={!allSelected}
           className={`h-full max-[375px]:basis-2/3 rounded-md min-[375px]:px-10 transition-colors ${
             allSelected
-              ? "bg-[#093453] text-white hover:bg-[#0d4a6b]"
+              ? "bg-deep-blue text-white hover:bg-[#0d4a6b]"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}
         >

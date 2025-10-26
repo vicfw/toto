@@ -32,7 +32,7 @@ export default function DrawCountdown() {
     const interval = setInterval(updateCountdown, 1000);
 
     return () => clearInterval(interval); // پاک کردن interval هنگام unmount
-  }, []);
+  });
 
   // تبدیل به دو رقمی برای نمایش
   const formatNumber = (num: number) => String(num).padStart(2, "0");
