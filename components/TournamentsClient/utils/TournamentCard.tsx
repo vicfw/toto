@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Tournament } from "@/src/lib/getTournamentById";
 import Link from "next/link";
+import RemainingTime from "@/components/RemainingTime";
 
 interface TournamentCardProps {
   tournament: Tournament;
@@ -49,48 +50,13 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
   const formatNumber = (num: number) => String(num).padStart(2, "0");
 
   return (
-    <li className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
-      <div className="flex flex-col h-full">
+    <li>
+      <div className="flex flex-col bg-white rounded-lg p-3 md:p-6 lg:p-8 shadow-sm">
         {/* Countdown */}
-        <div className="px-3 md:px-4 lg:px-5 pt-3 md:pt-4 pb-2">
-          {isExpired ? (
-            <div className="bg-red-500 text-white p-2 md:p-3 rounded text-center text-sm md:text-base">
-              <span className="font-semibold">تورنمنت به پایان رسیده است</span>
-            </div>
-          ) : (
-            <div className="bg-cool-gray-dark text-white p-2 md:p-3 rounded-lg text-center">
-              <div className="text-xs md:text-sm mb-1">زمان باقی‌مانده:</div>
-              <div className="flex justify-center items-center gap-1 md:gap-1.5 text-xs md:text-sm ">
-                {timeLeft.days > 0 && (
-                  <>
-                    <div className="bg-deep-blue-light px-1 md:px-1.5 py-0.5 rounded text-xs md:text-sm font-semibold">
-                      {formatNumber(timeLeft.days)}
-                    </div>
-                    <span className="text-xs">روز</span>
-                    <span className="text-xs">:</span>
-                  </>
-                )}
-                <div className="bg-deep-blue-light px-1 md:px-1.5 py-0.5 rounded text-xs md:text-sm font-semibold">
-                  {formatNumber(timeLeft.hours)}
-                </div>
-                <span className="text-xs">ساعت</span>
-                <span className="text-xs">:</span>
-                <div className="bg-deep-blue-light px-1 md:px-1.5 py-0.5 rounded text-xs md:text-sm font-semibold">
-                  {formatNumber(timeLeft.minutes)}
-                </div>
-                <span className="text-xs">دقیقه</span>
-                <span className="text-xs">:</span>
-                <div className="bg-deep-blue-light px-1 md:px-1.5 py-0.5 rounded text-xs md:text-sm font-semibold">
-                  {formatNumber(timeLeft.seconds)}
-                </div>
-                <span className="text-xs">ثانیه</span>
-              </div>
-            </div>
-          )}
-        </div>
+        <RemainingTime isExpired={isExpired} timeLeft={timeLeft} />
 
         {/* Title and Icon */}
-        <div className="px-3 md:px-4 lg:px-5 py-3">
+        <div className=" py-3">
           <div className="flex items-center">
             <svg
               viewBox="0 0 32 32"
@@ -104,11 +70,11 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
               {tournament.title}
             </span>
           </div>
+          
         </div>
 
         {/* Prizes Section */}
         {tournament.prizes && (
-          <div className="px-3 md:px-4 lg:px-5 pb-4 flex-1">
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
               <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
                 <svg
@@ -169,17 +135,14 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                 </div>
               </div>
             </div>
-          </div>
         )}
 
         {/* Button */}
-        <div className="px-3 md:px-4 lg:px-5 pb-4 md:pb-5 pt-3">
-          <Link href={`/tournament/${tournament.id}`} className="block w-full">
+          <Link href={`/tournament/${tournament.id}`} className="block w-full mt-3">
             <button className="w-full bg-deep-blue text-white py-2.5 md:py-3 text-sm md:text-base rounded-lg font-semibold hover:bg-deep-blue-dark transition-colors touch-manipulation">
               مشاهده مسابقات
             </button>
           </Link>
-        </div>
       </div>
     </li>
   );
