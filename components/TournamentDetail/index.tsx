@@ -529,7 +529,7 @@ export default function TournamentDetail({
             </button> */}
             <Button
               onClick={handleSubmitBets}
-              disabled={!allSelected}
+              // disabled={!allSelected}
               loading={isSubmitting}
               text="ثبت برگزاری"
             />
