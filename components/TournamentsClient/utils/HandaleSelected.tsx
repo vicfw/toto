@@ -1,3 +1,5 @@
+import { useRouter } from "next/navigation";
+
 interface HandaleSelectedProps {
   handleReset: () => void;
   handleRandom: () => void;
@@ -14,6 +16,8 @@ export default function HandaleSelected({
   allSelected,
   selectedBets,
 }: HandaleSelectedProps) {
+
+  const router = useRouter();
   return (
     <div className="shadow-custom bg-white p-2.5 flex gap-2">
       <button onClick={handleReset} className="shrink-0">
@@ -33,10 +37,7 @@ export default function HandaleSelected({
 
       <button onClick={handleRandom} className="shrink-0">
         <div className="py-1 px-2 rounded-sm bg-deep-blue hover:bg-[#0d4a6b] transition-colors min-w-11 min-h-11 flex justify-center items-center">
-          <svg
-            viewBox="0 0 15 13"
-            className="size-5 text-white"
-          >
+          <svg viewBox="0 0 15 13" className="size-5 text-white">
             <path
               fill="currentColor"
               d="m14.78 9.5-2.35-2.32a.68.68 0 0 0-1.17.5V8.8h-.94L8.77 7.18 7.18 8.84l2.09 2.2c.06.07.17.1.26.1h1.73v1.16c0 .64.73.93 1.17.5l2.35-2.33c.3-.26.3-.7 0-.96ZM.35 4.17h2.47l1.52 1.66 1.58-1.66-2.08-2.2a.44.44 0 0 0-.26-.12H.35c-.2 0-.35.17-.35.34v1.63c0 .2.15.35.35.35Zm10.91 0v1.16c0 .64.73.93 1.17.5l2.35-2.33c.3-.26.3-.7 0-.96L12.43.21a.68.68 0 0 0-1.17.5v1.13H9.53c-.09 0-.2.05-.26.11L2.82 8.81H.35c-.2 0-.35.17-.35.35v1.63c0 .2.15.35.35.35h3.23c.12 0 .2-.03.26-.1l6.48-6.88h.94Z"
@@ -56,6 +57,7 @@ export default function HandaleSelected({
         </div>
 
         <button
+           onClick={() => router.push("/coupon")}
           disabled={!allSelected}
           className={`h-full max-[375px]:basis-2/3 rounded-md min-[375px]:px-10 transition-colors ${
             allSelected

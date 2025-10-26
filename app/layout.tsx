@@ -22,7 +22,8 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <div className="pb-[80px]">
+        {/* className="pb-[80px]" */}
+        <div>
           <Providers>{children}</Providers>
           {/* <SubMenu /> */}
         </div>
