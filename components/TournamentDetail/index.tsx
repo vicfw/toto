@@ -180,6 +180,7 @@ export default function TournamentDetail({
       showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", "success");
       localStorage.removeItem("selectedBets");
       setSelectedBets({});
+      await fetchBalance();
     } catch (error: any) {
       showToast(error?.response?.data?.message, "error");
 
@@ -192,24 +193,22 @@ export default function TournamentDetail({
   ///////////////////////////////////
   const [balance, setBalance] = useState<string | null>(null);
 
+  const fetchBalance = async () => {
+    try {
+      const res = await getUserBalance();
+      setBalance(res.balance);
+    } catch (error) {
+      console.error("خطا در دریافت موجودی:", error);
+    }
+  };
+
   useEffect(() => {
     let isMounted = true;
-
-    const fetchBalance = async () => {
-      try {
-        const res = await getUserBalance();
-        if (isMounted) setBalance(res.balance);
-      } catch (error) {
-        console.error("خطا در دریافت موجودی:", error);
-      }
-    };
-
-    // فچ اولیه
-    fetchBalance();
-
-    // فچ هر ۳ ثانیه یک‌بار
+  
+    if (isMounted) fetchBalance();
+  
     const interval = setInterval(fetchBalance, 3000);
-
+  
     return () => {
       isMounted = false;
       clearInterval(interval);
