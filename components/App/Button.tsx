@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
     <button
       onClick={onClick}
       disabled={disabled || loading}
-      className={`flex-1 py-2.5 md:py-2.5 text-sm rounded-lg font-semibold transition-colors touch-manipulation flex items-center justify-center gap-2 ${className} ${
+      className={`flex-1 flex-nowrap text-nowrap py-2.5 md:py-2.5 text-sm rounded-lg font-semibold transition-colors touch-manipulation flex items-center justify-center gap-1 ${className} ${
         disabled
           ? "bg-gray-200 text-gray-400 cursor-not-allowed"
           : "bg-gray-200 text-gray-800 hover:bg-gray-300"
@@ -49,7 +49,7 @@ const Button: React.FC<ButtonProps> = ({
               d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
             ></path>
           </svg>
-          در حال ارسال...
+         
         </>
       ) : (
         text
