@@ -8,7 +8,6 @@ type ToastProviderProps = {
   children: ReactNode;
 };
 
-// تنظیمات گلوبال برای تمام پروژه
 const toastConfig: ToastOptions = {
   position: "top-right",
   autoClose: 3000,

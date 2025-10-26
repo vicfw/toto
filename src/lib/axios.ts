@@ -8,7 +8,6 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  // Check for auth token in localStorage (set after auto-login)
   const token =
     typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
   if (token && config.headers) {

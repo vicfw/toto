@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function DrawCountdown() {
-  // تاریخ و زمان هدف شمارشگر (می‌توانید آن را به صورت داینامیک بگیرید)
   const targetDate = new Date("2025-10-25T21:30:00");
 
   const [timeLeft, setTimeLeft] = useState({
@@ -28,13 +27,13 @@ export default function DrawCountdown() {
       setTimeLeft({ hours, minutes, seconds });
     };
 
-    updateCountdown(); // بلافاصله مقدار اولیه را تنظیم کن
+    updateCountdown(); 
     const interval = setInterval(updateCountdown, 1000);
 
-    return () => clearInterval(interval); // پاک کردن interval هنگام unmount
+    return () => clearInterval(interval); 
   });
 
-  // تبدیل به دو رقمی برای نمایش
+  
   const formatNumber = (num: number) => String(num).padStart(2, "0");
   return (
     <>
