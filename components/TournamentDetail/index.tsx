@@ -157,11 +157,13 @@ export default function TournamentDetail({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitBets = async () => {
-    if (selectedBets?.length == 0) {
-      showToast("", "success");
+
+    if (Object.keys(selectedBets).length === 0) {
+      showToast('لطفا یک شرط را انتخاب کنید ', "warning");
       return;
     }
-    setIsSubmitting(true);
+    setIsSubmitting(true)
+
     const payload = {
       tournament_id: tournament.id,
       predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
@@ -175,18 +177,18 @@ export default function TournamentDetail({
     try {
       const res = await postUserBet(payload);
       console.log("Bet submitted successfully:", res);
-      alert("پیش‌بینی شما با موفقیت ثبت شد 🎉");
+      showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", 'success')
       localStorage.removeItem("selectedBets");
       setSelectedBets({});
     } catch (error: any) {
-      showToast(error?.response?.data?.message, "success");
+      showToast(error?.response?.data?.message, "error")
+
       console.error("Error submitting bet:", error);
-      // alert("خطا در ثبت پیش‌بینی! لطفاً دوباره تلاش کنید.");
     } finally {
       setIsSubmitting(false);
     }
   };
-
+// 0
   return (
     <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
@@ -510,7 +512,7 @@ export default function TournamentDetail({
             </button> */}
             <Button
               onClick={handleSubmitBets}
-              disabled={!allSelected}
+              // disabled={!allSelected}
               loading={isSubmitting}
               text="ثبت برگزاری"
             />
