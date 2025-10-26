@@ -176,6 +176,7 @@ export default function TournamentDetail({
                   {tournament.matches_count} مسابقه
                 </span>
               </div>
+              
               {tournament.sport_type && (
                 <>
                   <div className="w-px h-6 md:h-8 bg-gray-300"></div>
@@ -189,6 +190,7 @@ export default function TournamentDetail({
                   </div>
                 </>
               )}
+              
             </div>
             <button
             onClick={() => router.back()} className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation">
@@ -204,7 +206,7 @@ export default function TournamentDetail({
                   stroke="#fff"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
