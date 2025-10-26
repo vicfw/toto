@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Tournament, Match } from "@/src/lib/getTournamentById";
+import { postUserBet } from "@/src/lib/postBet";
+import { showToast } from "@/src/providers/ToastProvider";
+import Button from "../App/Button";
+
 
 interface TournamentDetailProps {
   tournament: Tournament;
@@ -150,6 +154,40 @@ export default function TournamentDetail({
     }
     return flagImages[Math.abs(hash) % flagImages.length];
   };
+  /////////////////////////////////////  handleSubmitBets
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmitBets = async () => {
+
+    if (selectedBets?.length == 0) {
+      showToast('', "success")
+      return; }
+    setIsSubmitting(true)
+    const payload = {
+      tournament_id: tournament.id,
+      predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
+        match_id: Number(matchId),
+        selections: bets.map((b) =>
+          b === "1" ? "home" : b === "X" ? "draw" : "away"
+        ),
+      })),
+    };
+
+    try {
+      const res = await postUserBet(payload);
+      console.log("Bet submitted successfully:", res);
+      alert("پیش‌بینی شما با موفقیت ثبت شد 🎉");
+      localStorage.removeItem("selectedBets");
+      setSelectedBets({});
+    } catch (error: any) {
+      showToast(error?.response?.data?.message, "success")
+      console.error("Error submitting bet:", error);
+      // alert("خطا در ثبت پیش‌بینی! لطفاً دوباره تلاش کنید.");
+    } finally {
+      setIsSubmitting(false)
+    }
+  };
+
 
   return (
     <div className="bg-cool-gray  min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
@@ -191,8 +229,8 @@ export default function TournamentDetail({
               )}
             </div>
             <button
-            onClick={() => router.back()} className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation">
-            <span className="text-sm md:text-base font-medium">بازگشت</span>
+              onClick={() => router.back()} className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation">
+              <span className="text-sm md:text-base font-medium">بازگشت</span>
               <svg
                 className="w-6 h-6 md:w-6 md:h-6 "
                 viewBox="0 0 24 24"
@@ -204,7 +242,7 @@ export default function TournamentDetail({
                   stroke="#fff"
                   strokeWidth="2"
                   strokeLinecap="round"
-                  stroke-linejoin="round"
+                  strokeLinejoin="round"
                 />
               </svg>
             </button>
@@ -294,7 +332,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                     <span>ریال</span>
+                    <span>ریال</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.first.label}
@@ -308,7 +346,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                     <span>ریال</span>
+                    <span>ریال</span>
                   </div>
                   <div className="text-gray-500  mt-1 hidden md:block">
                     {tournament.prizes.second.label}
@@ -383,11 +421,10 @@ export default function TournamentDetail({
                       <li key={betOption}>
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
-                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
-                            selectedBets[match.id]?.includes(betOption)
-                              ? "bg-deep-blue text-white shadow-md border border-transparent"
-                              : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
-                          }`}
+                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${selectedBets[match.id]?.includes(betOption)
+                            ? "bg-deep-blue text-white shadow-md border border-transparent"
+                            : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                            }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
                             {betOption}
@@ -396,8 +433,8 @@ export default function TournamentDetail({
                             {betOption === "1"
                               ? match.percent_1
                               : betOption === "X"
-                              ? match.percent_X
-                              : match.percent_2}
+                                ? match.percent_X
+                                : match.percent_2}
                             %
                           </span>
                         </button>
@@ -457,16 +494,22 @@ export default function TournamentDetail({
             >
               انتخاب تصادفی
             </button>
-            <button
+            {/* <button
+              onClick={handleSubmitBets}
               disabled={!allSelected}
-              className={`flex-1 py-2.5 md:py-2.5 text-sm rounded-lg font-semibold transition-colors touch-manipulation ${
-                allSelected
-                  ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                  : "bg-gray-200 text-gray-400"
-              }`}
+              className={`flex-1 py-2.5 md:py-2.5 text-sm rounded-lg font-semibold transition-colors touch-manipulation ${allSelected
+                ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                : "bg-gray-200 text-gray-400"
+                }`}
             >
               ثبت برگزاری
-            </button>
+            </button> */}
+            <Button
+              onClick={handleSubmitBets}
+              disabled={!allSelected}
+              loading={isSubmitting}
+              text="ثبت برگزاری"
+            />
           </div>
         </div>
       </div>

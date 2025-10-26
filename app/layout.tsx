@@ -1,6 +1,7 @@
 import { Vazirmatn } from "next/font/google";
 import Providers from "./providers";
 import "./globals.css";
+import { ToastProvider } from "@/src/providers/ToastProvider";
 
 const vazir = Vazirmatn({
   subsets: ["latin", "arabic"],
@@ -23,7 +24,9 @@ export default function RootLayout({
     <html lang="fa" dir="rtl" className={vazir.variable}>
       <body className={vazir.className}>
         <div>
-          <Providers>{children}</Providers>
+          <ToastProvider>
+            <Providers>{children}</Providers>
+          </ToastProvider>
           {/* <SubMenu /> */}
         </div>
       </body>

@@ -17,6 +17,7 @@ export interface AutoLoginResponse {
     email: string;
     hall_login: string;
   };
+      
 }
 
 export interface UserResponse {
