@@ -1,0 +1,470 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Tournament, Match } from "@/src/lib/getTournamentById";
+
+interface TournamentDetailProps {
+  tournament: Tournament;
+  matches: Match[];
+}
+
+export default function TournamentDetail({
+  tournament,
+  matches,
+}: TournamentDetailProps) {
+  const router = useRouter();
+  const [selectedBets, setSelectedBets] = useState<{
+    [matchId: number]: ("1" | "X" | "2")[];
+  }>({});
+
+  // Load bets from localStorage on mount
+  useEffect(() => {
+    const savedBets = localStorage.getItem("selectedBets");
+    if (savedBets) {
+      try {
+        setSelectedBets(JSON.parse(savedBets));
+      } catch (e) {
+        console.error("Failed to parse saved bets", e);
+      }
+    }
+  }, []);
+
+  // Save bets to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("selectedBets", JSON.stringify(selectedBets));
+  }, [selectedBets]);
+
+  const handleBetSelect = (matchId: number, bet: "1" | "X" | "2") => {
+    setSelectedBets((prev) => {
+      const currentBets = prev[matchId] || [];
+      const isSelected = currentBets.includes(bet);
+
+      if (isSelected) {
+        return {
+          ...prev,
+          [matchId]: currentBets.filter((b) => b !== bet),
+        };
+      } else {
+        return {
+          ...prev,
+          [matchId]: [...currentBets, bet],
+        };
+      }
+    });
+  };
+
+  const handleReset = () => setSelectedBets({});
+
+  const handleRandom = () => {
+    const newBets: typeof selectedBets = {};
+    matches.forEach((match) => {
+      const options: ("1" | "X" | "2")[] = ["1", "X", "2"];
+      const numSelections = Math.floor(Math.random() * 3) + 1;
+      const shuffled = options.sort(() => Math.random() - 0.5);
+      newBets[match.id] = shuffled.slice(0, numSelections);
+    });
+    setSelectedBets(newBets);
+  };
+
+  const allSelected = matches.every(
+    (match) => selectedBets[match.id] && selectedBets[match.id].length > 0
+  );
+
+  // Calculate selection stats
+  const matchesWithSelections = matches.filter(
+    (match) => selectedBets[match.id] && selectedBets[match.id].length > 0
+  ).length;
+  const totalMatches = matches.length;
+  const totalSelections = Object.values(selectedBets).reduce(
+    (total, bets) => total + (bets?.length || 0),
+    0
+  );
+
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+  const [isExpired, setIsExpired] = useState(false);
+
+  useEffect(() => {
+    const updateCountdown = () => {
+      const now = new Date();
+      const targetDate = new Date(tournament.end_date);
+      const diff = targetDate.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setIsExpired(true);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor(
+        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      setTimeLeft({ days, hours, minutes, seconds });
+      setIsExpired(false);
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, [tournament.end_date]);
+
+  const formatNumber = (num: number) => String(num).padStart(2, "0");
+
+  function formatDateTime(dateString: string): string {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+
+    return `${year}/${month}/${day} (${hours}:${minutes})`;
+  }
+
+  const flagImages = [
+    "https://flagcdn.com/w20/ir.png",
+    "https://flagcdn.com/w20/br.png",
+    "https://flagcdn.com/w20/ar.png",
+    "https://flagcdn.com/w20/de.png",
+    "https://flagcdn.com/w20/fr.png",
+    "https://flagcdn.com/w20/es.png",
+    "https://flagcdn.com/w20/it.png",
+  ];
+
+  const getTeamFlag = (teamName: string): string => {
+    let hash = 0;
+    for (let i = 0; i < teamName.length; i++) {
+      const char = teamName.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash;
+    }
+    return flagImages[Math.abs(hash) % flagImages.length];
+  };
+
+  return (
+    <div className="bg-cool-gray min-h-screen pb-[140px] sm:pb-[80px] md:pb-4 lg:pb-6 pt-2 sm:pt-[10px]">
+      <div className="max-w-4xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+        {/* Back Button and Tournament Info */}
+        <div className="mt-2 sm:mt-4 mb-3 md:mb-4 lg:mb-6 flex items-center justify-between gap-2">
+          {/* Tournament Quick Info */}
+          <div className="flex items-center gap-2 md:gap-3 bg-white rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
+            <svg
+              viewBox="0 0 24 24"
+              className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+            >
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+              />
+            </svg>
+            <div className="flex flex-col">
+              <span className="text-xs md:text-sm text-gray-500">
+                تعداد مسابقات
+              </span>
+              <span className="text-sm md:text-base font-semibold text-gray-900">
+                {tournament.matches_count} مسابقه
+              </span>
+            </div>
+            {tournament.sport_type && (
+              <>
+                <div className="w-px h-6 md:h-8 bg-gray-300"></div>
+                <div className="flex flex-col">
+                  <span className="text-xs md:text-sm text-gray-500">
+                    نوع ورزش
+                  </span>
+                  <span className="text-sm md:text-base font-semibold text-gray-900">
+                    {tournament.sport_type}
+                  </span>
+                </div>
+              </>
+            )}
+          </div>
+          <button
+            onClick={() => router.back()}
+            className="flex items-center gap-2 md:gap-3 text-gray-700 hover:text-gray-900 transition-colors bg-white rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-5 h-5 md:w-6 md:h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m9 18-6-6 6-6" />
+              <path d="m21 12H3" />
+            </svg>
+            <span className="text-sm md:text-base font-medium">بازگشت</span>
+          </button>
+        </div>
+
+        {/* Tournament Header */}
+        <div className="bg-white rounded-lg mt-4 md:mt-6 p-4 md:p-6 lg:p-8 shadow-sm">
+          {/* Countdown */}
+          <div className="mb-4 md:mb-6">
+            {isExpired ? (
+              <div className="bg-red-500 text-white p-3 md:p-4 rounded text-center text-sm md:text-base">
+                <span className="font-semibold">
+                  تورنمنت به پایان رسیده است
+                </span>
+              </div>
+            ) : (
+              <div className="bg-deep-blue text-white p-3 md:p-4 rounded-lg text-center">
+                <div className="text-xs md:text-sm mb-2 md:mb-3">
+                  زمان باقی‌مانده:
+                </div>
+                <div className="flex justify-center items-center gap-2 md:gap-3">
+                  {timeLeft.days > 0 && (
+                    <>
+                      <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                        {formatNumber(timeLeft.days)}
+                      </div>
+                      <span className="text-xs md:text-sm">روز</span>
+                      <span className="text-xs md:text-sm">:</span>
+                    </>
+                  )}
+                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                    {formatNumber(timeLeft.hours)}
+                  </div>
+                  <span className="text-xs md:text-sm">ساعت</span>
+                  <span className="text-xs md:text-sm">:</span>
+                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                    {formatNumber(timeLeft.minutes)}
+                  </div>
+                  <span className="text-xs md:text-sm">دقیقه</span>
+                  <span className="text-xs md:text-sm">:</span>
+                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                    {formatNumber(timeLeft.seconds)}
+                  </div>
+                  <span className="text-xs md:text-sm">ثانیه</span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Title */}
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <svg
+              viewBox="0 0 32 32"
+              className="size-6 md:size-8 text-deep-blue"
+            >
+              <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
+            </svg>
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
+              {tournament.title}
+            </h1>
+          </div>
+
+          {/* Prizes */}
+          {tournament.prizes && (
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
+              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  />
+                </svg>
+                <span className="text-sm md:text-base font-semibold text-deep-blue">
+                  جوایز تورنمنت
+                </span>
+              </div>
+              <div className="grid grid-cols-3 gap-2 md:gap-3">
+                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                    اول
+                  </div>
+                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                    {parseFloat(tournament.prizes.first.amount).toLocaleString(
+                      "fa-IR"
+                    )}{" "}
+                    ریال
+                  </div>
+                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                    {tournament.prizes.first.label}
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                    دوم
+                  </div>
+                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                    {parseFloat(tournament.prizes.second.amount).toLocaleString(
+                      "fa-IR"
+                    )}{" "}
+                    ریال
+                  </div>
+                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                    {tournament.prizes.second.label}
+                  </div>
+                </div>
+                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                    سوم
+                  </div>
+                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                    {parseFloat(tournament.prizes.third.amount).toLocaleString(
+                      "fa-IR"
+                    )}{" "}
+                    ریال
+                  </div>
+                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                    {tournament.prizes.third.label}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Matches List */}
+        <div className="mt-4 md:mt-6">
+          <ul className="space-y-3 md:space-y-4">
+            {matches.map((match, index) => (
+              <li
+                key={match.id}
+                className="bg-white p-4 md:p-5 lg:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center w-full">
+                    <div className="aspect-square h-6 md:h-8 w-6 md:w-8 rounded-full bg-sky-blue-light shrink-0 flex items-center justify-center ml-2 md:ml-3 font-semibold">
+                      <span className="text-sm md:text-base">{index + 1}</span>
+                    </div>
+                    <span className="text-sm md:text-base text-[#808080]">
+                      {formatDateTime(match.start_time)}
+                    </span>
+                  </div>
+                  <ul className="font-bold text-base md:text-lg lg:text-xl space-y-2 md:space-y-3">
+                    <li className="ml-2 md:ml-3 flex items-center gap-2 md:gap-3">
+                      <img
+                        src={getTeamFlag(match.home_team)}
+                        alt={`${match.home_team} flag`}
+                        className="w-6 h-5 md:w-7 md:h-6 object-cover rounded-sm"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                      {match.home_team}
+                    </li>
+                    <li className="ml-2 md:ml-3 flex items-center gap-2 md:gap-3">
+                      <img
+                        src={getTeamFlag(match.away_team)}
+                        alt={`${match.away_team} flag`}
+                        className="w-6 h-5 md:w-7 md:h-6 object-cover rounded-sm"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
+                      />
+                      {match.away_team}
+                    </li>
+                  </ul>
+
+                  <ul className="grid grid-cols-3 text-sm md:text-base gap-2 md:gap-3">
+                    {(["1", "X", "2"] as const).map((betOption) => (
+                      <li key={betOption}>
+                        <button
+                          onClick={() => handleBetSelect(match.id, betOption)}
+                          className={`w-full px-3 md:px-3 lg:px-4 py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-opacity-50 ${
+                            selectedBets[match.id]?.includes(betOption)
+                              ? "bg-deep-blue text-white shadow-md border border-transparent"
+                              : "bg-white text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                          }`}
+                        >
+                          <span className="block font-semibold text-base md:text-base">
+                            {betOption}
+                          </span>
+                          <span className="block text-xs md:text-sm opacity-75">
+                            {betOption === "1"
+                              ? match.percent_1
+                              : betOption === "X"
+                              ? match.percent_X
+                              : match.percent_2}
+                            %
+                          </span>
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:sticky md:bottom-0 md:left-auto md:right-auto md:border md:border-gray-200 md:rounded-lg md:shadow-sm md:px-4 md:pt-4 md:pb-4 md:z-10 md:mt-6">
+          {/* Selection Stats */}
+          <div className="px-4 pt-4 pb-2 md:px-0 md:pt-0">
+            <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3 md:p-4">
+              <div className="flex items-center gap-2 md:gap-3">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+                  />
+                </svg>
+                <div className="flex flex-col">
+                  <span className="text-xs md:text-sm text-gray-600">
+                    تعداد انتخاب شده
+                  </span>
+                  <span className="text-sm md:text-base font-semibold text-gray-900">
+                    {matchesWithSelections} از {totalMatches} مسابقه
+                  </span>
+                </div>
+              </div>
+              <div className="text-left">
+                <div className="text-xs md:text-sm text-gray-600">
+                  تعداد گزینه‌های انتخابی
+                </div>
+                <div className="text-lg md:text-xl font-bold text-deep-blue">
+                  {totalSelections}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 pb-4 pt-2 md:px-0 md:pb-0 flex gap-2 md:gap-3">
+            <button
+              onClick={handleReset}
+              className="flex-1 bg-gray-200 text-gray-800 py-2.5 md:py-2.5 text-sm rounded-lg font-semibold hover:bg-gray-300 transition-colors touch-manipulation"
+            >
+              پاک کردن همه
+            </button>
+            <button
+              onClick={handleRandom}
+              className="flex-1 bg-deep-blue text-white py-2.5 md:py-2.5 text-sm rounded-lg font-semibold hover:bg-deep-blue-dark transition-colors touch-manipulation"
+            >
+              انتخاب تصادفی
+            </button>
+            <button
+              disabled={!allSelected}
+              className={`flex-1 py-2.5 md:py-2.5 text-sm rounded-lg font-semibold transition-colors touch-manipulation ${
+                allSelected
+                  ? "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                  : "bg-gray-200 text-gray-400"
+              }`}
+            >
+              ثبت برگزاری
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
