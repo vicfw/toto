@@ -7,7 +7,6 @@ import { postUserBet } from "@/src/lib/postBet";
 import { showToast } from "@/src/providers/ToastProvider";
 import Button from "../App/Button";
 
-
 interface TournamentDetailProps {
   tournament: Tournament;
   matches: Match[];
@@ -164,6 +163,7 @@ export default function TournamentDetail({
       return;
     }
     setIsSubmitting(true)
+
     const payload = {
       tournament_id: tournament.id,
       predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
@@ -182,55 +182,59 @@ export default function TournamentDetail({
       setSelectedBets({});
     } catch (error: any) {
       showToast(error?.response?.data?.message, "error")
+
       console.error("Error submitting bet:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   };
 
-
   return (
-    <div className="bg-cool-gray  min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
+    <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
         {/* Back Button and Tournament Info */}
         <div className="mt-2 sm:mt-4 mb-3 md:mb-4 lg:mb-6 flex items-center justify-between gap-2">
           {/* Tournament Quick Info */}
           <div className="flex items-center justify-between bg-white w-full rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
-            <div className="flex items-center gap-3 md:gap-3">
-              <svg
-                viewBox="0 0 24 24"
-                className="w-5 h-5 md:w-5 md:h-5 text-deep-blue"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
-                />
-              </svg>
+            <div className="flex items-center gap-3 md:gap-3 text-[11px] text-center">
+            
               <div className="flex flex-col">
-                <span className="text-xs md:text-sm text-gray-500">
+                <span className=" text-gray-500">
                   تعداد مسابقات
                 </span>
-                <span className="text-sm md:text-base font-semibold text-gray-900">
+                <span className="text-xs md:text-base font-semibold text-gray-900">
                   {tournament.matches_count} مسابقه
                 </span>
               </div>
+
               {tournament.sport_type && (
                 <>
                   <div className="w-px h-6 md:h-8 bg-gray-300"></div>
                   <div className="flex flex-col">
-                    <span className="text-xs md:text-sm text-gray-500">
+                    <span className=" text-gray-500">
                       نوع ورزش
                     </span>
-                    <span className="text-sm md:text-base font-semibold text-gray-900">
+                    <span className="text-xs md:text-base font-semibold text-gray-900 mt-0.5">
                       {tournament.sport_type}
                     </span>
                   </div>
                 </>
               )}
+              <div className="w-px h-6 md:h-8 bg-gray-300"></div>
+              <div className="flex flex-col">
+                <span className=" text-gray-500">
+                  تعداد شرکت کنندگان
+                </span>
+                <span className="text-xs md:text-base font-semibold text-gray-900">
+                  15000
+                </span>
+              </div>
             </div>
             <button
-              onClick={() => router.back()} className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation">
-              <span className="text-sm md:text-base font-medium">بازگشت</span>
+              onClick={() => router.back()}
+              className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation"
+            >
+              {/* <span className="text-sm md:text-base font-medium">بازگشت</span> */}
               <svg
                 className="w-6 h-6 md:w-6 md:h-6 "
                 viewBox="0 0 24 24"
@@ -270,24 +274,24 @@ export default function TournamentDetail({
                       <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                         {formatNumber(timeLeft.days)}
                       </div>
-                      <span >روز</span>
-                      <span >:</span>
+                      <span>روز</span>
+                      <span>:</span>
                     </>
                   )}
                   <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.hours)}
                   </div>
-                  <span >ساعت</span>
-                  <span >:</span>
+                  <span>ساعت</span>
+                  <span>:</span>
                   <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.minutes)}
                   </div>
-                  <span >دقیقه</span>
-                  <span >:</span>
+                  <span>دقیقه</span>
+                  <span>:</span>
                   <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.seconds)}
                   </div>
-                  <span >ثانیه</span>
+                  <span>ثانیه</span>
                 </div>
               </div>
             )}
@@ -421,10 +425,11 @@ export default function TournamentDetail({
                       <li key={betOption}>
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
-                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${selectedBets[match.id]?.includes(betOption)
-                            ? "bg-deep-blue text-white shadow-md border border-transparent"
-                            : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
-                            }`}
+                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
+                            selectedBets[match.id]?.includes(betOption)
+                              ? "bg-deep-blue text-white shadow-md border border-transparent"
+                              : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                          }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
                             {betOption}
@@ -433,8 +438,8 @@ export default function TournamentDetail({
                             {betOption === "1"
                               ? match.percent_1
                               : betOption === "X"
-                                ? match.percent_X
-                                : match.percent_2}
+                              ? match.percent_X
+                              : match.percent_2}
                             %
                           </span>
                         </button>
