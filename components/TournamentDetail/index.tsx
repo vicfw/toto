@@ -7,7 +7,7 @@ import { postUserBet } from "@/src/lib/postBet";
 import { showToast } from "@/src/providers/ToastProvider";
 import Button from "../App/Button";
 import RemainingTime from "../RemainingTime";
-
+import { getUserBalance } from "@/src/lib/getBalance";
 interface TournamentDetailProps {
   tournament: Tournament;
   matches: Match[];
@@ -154,42 +154,67 @@ export default function TournamentDetail({
     }
     return flagImages[Math.abs(hash) % flagImages.length];
   };
- /////////////////////////////////////  handleSubmitBets
- const [isSubmitting, setIsSubmitting] = useState(false);
+  /////////////////////////////////////  handleSubmitBets
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
- const handleSubmitBets = async () => {
+  const handleSubmitBets = async () => {
+    if (Object.keys(selectedBets).length === 0) {
+      showToast("لطفا یک شرط را انتخاب کنید ", "warning");
+      return;
+    }
+    setIsSubmitting(true);
 
-   if (Object.keys(selectedBets).length === 0) {
-     showToast('لطفا یک شرط را انتخاب کنید ', "warning");
-     return;
-   }
-   setIsSubmitting(true)
+    const payload = {
+      tournament_id: tournament.id,
+      predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
+        match_id: Number(matchId),
+        selections: bets.map((b) =>
+          b === "1" ? "home" : b === "X" ? "draw" : "away"
+        ),
+      })),
+    };
 
-   const payload = {
-     tournament_id: tournament.id,
-     predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
-       match_id: Number(matchId),
-       selections: bets.map((b) =>
-         b === "1" ? "home" : b === "X" ? "draw" : "away"
-       ),
-     })),
-   };
+    try {
+      const res = await postUserBet(payload);
+      console.log("Bet submitted successfully:", res);
+      showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", "success");
+      localStorage.removeItem("selectedBets");
+      setSelectedBets({});
+    } catch (error: any) {
+      showToast(error?.response?.data?.message, "error");
 
-   try {
-     const res = await postUserBet(payload);
-     console.log("Bet submitted successfully:", res);
-     showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", 'success')
-     localStorage.removeItem("selectedBets");
-     setSelectedBets({});
-   } catch (error: any) {
-     showToast(error?.response?.data?.message, "error")
+      console.error("Error submitting bet:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  // 0
+  ///////////////////////////////////
+  const [balance, setBalance] = useState<string | null>(null);
 
-     console.error("Error submitting bet:", error);
-   } finally {
-     setIsSubmitting(false);
-   }
- };
-// 0
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchBalance = async () => {
+      try {
+        const res = await getUserBalance();
+        if (isMounted) setBalance(res.balance);
+      } catch (error) {
+        console.error("خطا در دریافت موجودی:", error);
+      }
+    };
+
+    // فچ اولیه
+    fetchBalance();
+
+    // فچ هر ۳ ثانیه یک‌بار
+    const interval = setInterval(fetchBalance, 3000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
   return (
     <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
@@ -352,9 +377,20 @@ export default function TournamentDetail({
                         {index + 1}
                       </span>
                     </div>
-                    <span className="text-sm md:text-base text-[#808080]">
-                      {formatDateTime(match.start_time)}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm md:text-base text-[#808080]">
+                        {formatDateTime(match.start_time)}
+                      </span>
+                      <div className="flex gap-1 ">
+                        <span className="text-[8px]">
+                          {match.league.country}
+                        </span>
+                        <span className="text-[8px]">
+                          ({match.league.name})
+                        </span>
+                      </div>
+                    </div>
+
                     <button className="mr-auto">
                       <span className="fill-deep-blue">
                         <svg
@@ -368,7 +404,7 @@ export default function TournamentDetail({
                       </span>
                     </button>
                   </div>
-                  <ul className="font-semibold text-sm md:text-lg lg:text-xl space-y-2 md:space-y-3">
+                  <ul className="font-semibold text-sm md:text-lg lg:text-xl space-y-2 md:space-y-3 ">
                     <li className="ml-2 md:ml-3 flex items-center gap-2 md:gap-3">
                       <img
                         src={getTeamFlag(match.home_team)}
@@ -458,7 +494,17 @@ export default function TournamentDetail({
                 </div>
               </div>
             </div>
+            {/*   balance*/}
+            <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3  border border-gray-200 mt-2">
+              <span className="text-xs text-gray-600">موجودی فعلی شما:</span>
+              <span className=" font-bold text-deep-blue text-xs">
+                {balance
+                  ? `${parseFloat(balance).toLocaleString("fa-IR")} ریال`
+                  : <span className=""> در حال دریافت...</span>}
+              </span>
+            </div>
           </div>
+
           <div className="px-4 pb-4 pt-2 md:px-0 md:pb-0 flex gap-2 md:gap-3">
             <button
               onClick={handleReset}
