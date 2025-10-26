@@ -159,9 +159,10 @@ export default function TournamentDetail({
 
   const handleSubmitBets = async () => {
 
-    if (selectedBets?.length == 0) {
-      showToast('', "success")
-      return; }
+    if (Object.keys(selectedBets).length === 0) {
+      showToast('لطفا یک شرط را انتخاب کنید ', "warning");
+      return;
+    }
     setIsSubmitting(true)
     const payload = {
       tournament_id: tournament.id,
@@ -176,13 +177,12 @@ export default function TournamentDetail({
     try {
       const res = await postUserBet(payload);
       console.log("Bet submitted successfully:", res);
-      alert("پیش‌بینی شما با موفقیت ثبت شد 🎉");
+      showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", 'success')
       localStorage.removeItem("selectedBets");
       setSelectedBets({});
     } catch (error: any) {
-      showToast(error?.response?.data?.message, "success")
+      showToast(error?.response?.data?.message, "error")
       console.error("Error submitting bet:", error);
-      // alert("خطا در ثبت پیش‌بینی! لطفاً دوباره تلاش کنید.");
     } finally {
       setIsSubmitting(false)
     }
@@ -506,7 +506,7 @@ export default function TournamentDetail({
             </button> */}
             <Button
               onClick={handleSubmitBets}
-              disabled={!allSelected}
+              // disabled={!allSelected}
               loading={isSubmitting}
               text="ثبت برگزاری"
             />

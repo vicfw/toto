@@ -28,7 +28,6 @@ export const ToastProvider = ({ children }: ToastProviderProps) => {
   );
 };
 
-// تابع گلوبال برای استفاده راحت در هرجا
 export const showToast = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
   switch (type) {
     case "success":
