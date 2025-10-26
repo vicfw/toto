@@ -58,9 +58,9 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
               <span className="font-semibold">تورنمنت به پایان رسیده است</span>
             </div>
           ) : (
-            <div className="bg-deep-blue text-white p-2 md:p-3 rounded-lg text-center">
+            <div className="bg-cool-gray-dark text-white p-2 md:p-3 rounded-lg text-center">
               <div className="text-xs md:text-sm mb-1">زمان باقی‌مانده:</div>
-              <div className="flex justify-center items-center gap-1 md:gap-1.5 text-xs md:text-sm">
+              <div className="flex justify-center items-center gap-1 md:gap-1.5 text-xs md:text-sm ">
                 {timeLeft.days > 0 && (
                   <>
                     <div className="bg-deep-blue-light px-1 md:px-1.5 py-0.5 rounded text-xs md:text-sm font-semibold">
@@ -113,7 +113,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
               <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
                 <svg
                   viewBox="0 0 24 24"
-                  className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+                  className="w-4 h-4 md:w-5 md:h-5 text-warm-gold-light"
                 >
                   <path
                     fill="currentColor"

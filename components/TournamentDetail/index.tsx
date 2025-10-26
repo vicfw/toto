@@ -152,53 +152,70 @@ export default function TournamentDetail({
   };
 
   return (
-    <div className="bg-cool-gray min-h-screen pb-[140px] sm:pb-[80px] md:pb-4 lg:pb-6 pt-2 sm:pt-[10px]">
-      <div className="max-w-4xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+    <div className="bg-cool-gray  min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
+      <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
         {/* Back Button and Tournament Info */}
         <div className="mt-2 sm:mt-4 mb-3 md:mb-4 lg:mb-6 flex items-center justify-between gap-2">
           {/* Tournament Quick Info */}
-          <div className="flex items-center gap-2 md:gap-3 bg-white rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
+          <div className="flex items-center justify-between bg-white w-full rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
+            <div className="flex items-center gap-3 md:gap-3">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-5 h-5 md:w-5 md:h-5 text-deep-blue"
+              >
+                <path
+                  fill="currentColor"
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                />
+              </svg>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm text-gray-500">
+                  تعداد مسابقات
+                </span>
+                <span className="text-sm md:text-base font-semibold text-gray-900">
+                  {tournament.matches_count} مسابقه
+                </span>
+              </div>
+              {tournament.sport_type && (
+                <>
+                  <div className="w-px h-6 md:h-8 bg-gray-300"></div>
+                  <div className="flex flex-col">
+                    <span className="text-xs md:text-sm text-gray-500">
+                      نوع ورزش
+                    </span>
+                    <span className="text-sm md:text-base font-semibold text-gray-900">
+                      {tournament.sport_type}
+                    </span>
+                  </div>
+                </>
+              )}
+            </div>
+
             <svg
+              className="w-7 h-7 md:w-6 md:h-6 "
               viewBox="0 0 24 24"
-              className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                fill="currentColor"
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"
+                d="M15 18L9 12L15 6"
+                stroke="#145b7d"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
-            <div className="flex flex-col">
-              <span className="text-xs md:text-sm text-gray-500">
-                تعداد مسابقات
-              </span>
-              <span className="text-sm md:text-base font-semibold text-gray-900">
-                {tournament.matches_count} مسابقه
-              </span>
-            </div>
-            {tournament.sport_type && (
-              <>
-                <div className="w-px h-6 md:h-8 bg-gray-300"></div>
-                <div className="flex flex-col">
-                  <span className="text-xs md:text-sm text-gray-500">
-                    نوع ورزش
-                  </span>
-                  <span className="text-sm md:text-base font-semibold text-gray-900">
-                    {tournament.sport_type}
-                  </span>
-                </div>
-              </>
-            )}
           </div>
-          <button
+          {/* <button
             onClick={() => router.back()}
-            className="flex items-center gap-2 md:gap-3 text-gray-700 hover:text-gray-900 transition-colors bg-white rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation"
+            className="  flex items-center gap-2 md:gap-3 text-white hover:text-gray-900 transition-colors bg-sky-blue rounded-lg px-3 md:px-4 py-4 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation"
           >
             <svg
               viewBox="0 0 24 24"
-              className="w-5 h-5 md:w-6 md:h-6"
+              className="w-5 h-5 md:w-6 md:h-6 ]"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="3"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -206,13 +223,13 @@ export default function TournamentDetail({
               <path d="m21 12H3" />
             </svg>
             <span className="text-sm md:text-base font-medium">بازگشت</span>
-          </button>
+          </button> */}
         </div>
 
         {/* Tournament Header */}
-        <div className="bg-white rounded-lg mt-4 md:mt-6 p-4 md:p-6 lg:p-8 shadow-sm">
+        <div className="bg-white rounded-lg mt-4 md:mt-6 p-3 md:p-6 lg:p-8 shadow-sm">
           {/* Countdown */}
-          <div className="mb-4 md:mb-6">
+          <div className="mb-4 md:mb-6 ">
             {isExpired ? (
               <div className="bg-red-500 text-white p-3 md:p-4 rounded text-center text-sm md:text-base">
                 <span className="font-semibold">
@@ -220,8 +237,8 @@ export default function TournamentDetail({
                 </span>
               </div>
             ) : (
-              <div className="bg-deep-blue text-white p-3 md:p-4 rounded-lg text-center">
-                <div className="text-xs md:text-sm mb-2 md:mb-3">
+              <div className="bg-cool-gray-dark text-white p-3 md:p-4 rounded-lg text-center shadow-custom">
+                <div className="text-xs md:text-sm mb-2 md:mb-3 ">
                   زمان باقی‌مانده:
                 </div>
                 <div className="flex justify-center items-center gap-2 md:gap-3">
@@ -272,7 +289,7 @@ export default function TournamentDetail({
               <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
                 <svg
                   viewBox="0 0 24 24"
-                  className="w-4 h-4 md:w-5 md:h-5 text-deep-blue"
+                  className="w-4 h-4 md:w-5 md:h-5 text-warm-gold-light"
                 >
                   <path
                     fill="currentColor"
@@ -330,25 +347,28 @@ export default function TournamentDetail({
             </div>
           )}
         </div>
-
+      </div>
+      <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 ">
         {/* Matches List */}
-        <div className="mt-4 md:mt-6">
-          <ul className="space-y-3 md:space-y-4">
+        <div className=" ">
+          <ul className="space-y-2 md:space-y-4">
             {matches.map((match, index) => (
               <li
                 key={match.id}
-                className="bg-white p-4 md:p-5 lg:p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white p-3 md:p-5 lg:p-6 rounded-lg "
               >
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center w-full">
                     <div className="aspect-square h-6 md:h-8 w-6 md:w-8 rounded-full bg-sky-blue-light shrink-0 flex items-center justify-center ml-2 md:ml-3 font-semibold">
-                      <span className="text-sm md:text-base">{index + 1}</span>
+                      <span className="text-sm md:text-base pt-[3px]">
+                        {index + 1}
+                      </span>
                     </div>
                     <span className="text-sm md:text-base text-[#808080]">
                       {formatDateTime(match.start_time)}
                     </span>
                   </div>
-                  <ul className="font-bold text-base md:text-lg lg:text-xl space-y-2 md:space-y-3">
+                  <ul className="font-semibold text-sm md:text-lg lg:text-xl space-y-2 md:space-y-3">
                     <li className="ml-2 md:ml-3 flex items-center gap-2 md:gap-3">
                       <img
                         src={getTeamFlag(match.home_team)}
@@ -378,16 +398,16 @@ export default function TournamentDetail({
                       <li key={betOption}>
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
-                          className={`w-full px-3 md:px-3 lg:px-4 py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center focus:outline-none focus:ring-2 focus:ring-deep-blue focus:ring-opacity-50 ${
+                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
                             selectedBets[match.id]?.includes(betOption)
                               ? "bg-deep-blue text-white shadow-md border border-transparent"
-                              : "bg-white text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                              : "bg-sky-blue-light text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
                           }`}
                         >
-                          <span className="block font-semibold text-base md:text-base">
+                          <span className="block font-semibold text-xs md:text-base opacity-80">
                             {betOption}
                           </span>
-                          <span className="block text-xs md:text-sm opacity-75">
+                          <span className="block text-sm ">
                             {betOption === "1"
                               ? match.percent_1
                               : betOption === "X"
@@ -406,7 +426,7 @@ export default function TournamentDetail({
         </div>
 
         {/* Action Buttons */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:sticky md:bottom-0 md:left-auto md:right-auto md:border md:border-gray-200 md:rounded-lg md:shadow-sm md:px-4 md:pt-4 md:pb-4 md:z-10 md:mt-6">
+        <div className=" fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 md:sticky md:bottom-0 md:left-auto md:right-auto md:border md:border-gray-200 md:rounded-lg md:shadow-sm md:px-4 md:pt-4 md:pb-4 md:z-10 md:mt-6 shadow-custom">
           {/* Selection Stats */}
           <div className="px-4 pt-4 pb-2 md:px-0 md:pt-0">
             <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3 md:p-4">
