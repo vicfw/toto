@@ -253,6 +253,18 @@ export default function TournamentDetail({
 
         {/* Tournament Header */}
         <div className="bg-white rounded-lg mt-4 md:mt-6 p-3 md:p-6 lg:p-8 shadow-sm">
+             {/* Title */}
+          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+            <svg
+              viewBox="0 0 32 32"
+              className="size-6 md:size-8 text-deep-blue"
+            >
+              <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
+            </svg>
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
+              {tournament.title}
+            </h1>
+          </div>
           {/* Countdown */}
           <div className="mb-4 md:mb-6 ">
             {isExpired ? (
@@ -295,18 +307,7 @@ export default function TournamentDetail({
             )}
           </div>
 
-          {/* Title */}
-          <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-            <svg
-              viewBox="0 0 32 32"
-              className="size-6 md:size-8 text-deep-blue"
-            >
-              <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
-            </svg>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
-              {tournament.title}
-            </h1>
-          </div>
+       
 
           {/* Prizes */}
           {tournament.prizes && (
