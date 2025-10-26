@@ -188,7 +188,7 @@ export default function TournamentDetail({
       setIsSubmitting(false);
     }
   };
-
+// 0
   return (
     <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
