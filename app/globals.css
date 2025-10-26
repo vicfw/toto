@@ -35,6 +35,8 @@ body {
   --color-white: #ffffff;
   --color-deep-blue: #093453;
   --color-ice-blue: #eff6ff;
+  --color-ocean-blue: #007290;
+
   --color-warm-gold: #b58c46;
   --color-sky-blue: #6dbae7;
   --color-cool-gray: #c4d2dd;
@@ -42,7 +44,7 @@ body {
   --color-deep-blue-light: #145b7d;
   --color-deep-blue-dark: #061e31;
 
-  --color-warm-gold-light: #d8b56b;
+  --color-warm-gold-light: #ea9a27;
   --color-warm-gold-dark: #8b6b2e;
 
   --color-sky-blue-light: #cae7f7;
@@ -57,14 +59,15 @@ body {
   --color-white: #ffffff;
   --color-deep-blue: #093453;
   --color-ice-blue: #eff6ff;
-  --color-warm-gold: #b58c46;
+  --color-ocean-blue: #007290;
+  --color-warm-gold: #ea9a27;
   --color-sky-blue: #6dbae7;
   --color-cool-gray: #c4d2dd;
   /* سایه‌ها و درجات روشن/تیره */
   --color-deep-blue-light: #145b7d;
   --color-deep-blue-dark: #061e31;
 
-  --color-warm-gold-light: #d8b56b;
+  --color-warm-gold-light: #ea9a27;
   --color-warm-gold-dark: #8b6b2e;
 
   --color-sky-blue-light: #cae7f7;

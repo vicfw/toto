@@ -124,40 +124,40 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                   جوایز تورنمنت
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 md:gap-3">
+              <div className="grid grid-cols-3 gap-2 md:gap-3 text-[10px]">
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
                     اول
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900  md:text-sm">
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
                     ریال
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
                     {tournament.prizes.first.label}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
                     دوم
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900  md:text-sm">
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
                     ریال
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
                     {tournament.prizes.second.label}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
                     سوم
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900  md:text-sm">
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}

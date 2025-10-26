@@ -190,40 +190,25 @@ export default function TournamentDetail({
                 </>
               )}
             </div>
-
-            <svg
-              className="w-7 h-7 md:w-6 md:h-6 "
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 18L9 12L15 6"
-                stroke="#145b7d"
-                stroke-width="3"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-          {/* <button
-            onClick={() => router.back()}
-            className="  flex items-center gap-2 md:gap-3 text-white hover:text-gray-900 transition-colors bg-sky-blue rounded-lg px-3 md:px-4 py-4 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="w-5 h-5 md:w-6 md:h-6 ]"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m9 18-6-6 6-6" />
-              <path d="m21 12H3" />
-            </svg>
+            <button
+            onClick={() => router.back()} className="flex items-center gap-1 md:gap-2 text-white hover:text-gray-900 transition-colors bg-ocean-blue rounded-lg px-2 md:px-4 py-2 md:py-2.5 shadow-sm hover:shadow-md touch-manipulation">
             <span className="text-sm md:text-base font-medium">بازگشت</span>
-          </button> */}
+              <svg
+                className="w-6 h-6 md:w-6 md:h-6 "
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M15 18L9 12L15 6"
+                  stroke="#fff"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Tournament Header */}
@@ -241,30 +226,30 @@ export default function TournamentDetail({
                 <div className="text-xs md:text-sm mb-2 md:mb-3 ">
                   زمان باقی‌مانده:
                 </div>
-                <div className="flex justify-center items-center gap-2 md:gap-3">
+                <div className="flex justify-center items-center gap-1.5 md:gap-3 text-[10px] md:text-sm">
                   {timeLeft.days > 0 && (
                     <>
-                      <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                      <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                         {formatNumber(timeLeft.days)}
                       </div>
-                      <span className="text-xs md:text-sm">روز</span>
-                      <span className="text-xs md:text-sm">:</span>
+                      <span >روز</span>
+                      <span >:</span>
                     </>
                   )}
-                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.hours)}
                   </div>
-                  <span className="text-xs md:text-sm">ساعت</span>
-                  <span className="text-xs md:text-sm">:</span>
-                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                  <span >ساعت</span>
+                  <span >:</span>
+                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.minutes)}
                   </div>
-                  <span className="text-xs md:text-sm">دقیقه</span>
-                  <span className="text-xs md:text-sm">:</span>
-                  <div className="bg-deep-blue-light px-2 md:px-3 py-1 md:py-1.5 rounded text-sm md:text-base font-semibold">
+                  <span >دقیقه</span>
+                  <span >:</span>
+                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
                     {formatNumber(timeLeft.seconds)}
                   </div>
-                  <span className="text-xs md:text-sm">ثانیه</span>
+                  <span >ثانیه</span>
                 </div>
               </div>
             )}
@@ -300,46 +285,46 @@ export default function TournamentDetail({
                   جوایز تورنمنت
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 md:gap-3">
+              <div className="grid grid-cols-3 gap-2 md:gap-3 text-[10px] md:text-sm">
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold mb-1 md:mb-2">
                     اول
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                     <span>ریال</span>
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.first.label}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold  mb-1 md:mb-2">
                     دوم
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                     <span>ریال</span>
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500  mt-1 hidden md:block">
                     {tournament.prizes.second.label}
                   </div>
                 </div>
                 <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold text-xs md:text-sm mb-1 md:mb-2">
+                  <div className="text-deep-blue font-bold  mb-1 md:mb-2">
                     سوم
                   </div>
-                  <div className="font-semibold text-gray-900 text-xs md:text-sm">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                    <span>ریال</span>
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.third.label}
                   </div>
                 </div>
@@ -401,7 +386,7 @@ export default function TournamentDetail({
                           className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
                             selectedBets[match.id]?.includes(betOption)
                               ? "bg-deep-blue text-white shadow-md border border-transparent"
-                              : "bg-sky-blue-light text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                              : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
                           }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
