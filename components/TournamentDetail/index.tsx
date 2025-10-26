@@ -6,6 +6,7 @@ import { Tournament, Match } from "@/src/lib/getTournamentById";
 import { postUserBet } from "@/src/lib/postBet";
 import { showToast } from "@/src/providers/ToastProvider";
 import Button from "../App/Button";
+import RemainingTime from "../RemainingTime";
 
 interface TournamentDetailProps {
   tournament: Tournament;
@@ -153,41 +154,41 @@ export default function TournamentDetail({
     }
     return flagImages[Math.abs(hash) % flagImages.length];
   };
-  /////////////////////////////////////  handleSubmitBets
-  const [isSubmitting, setIsSubmitting] = useState(false);
+ /////////////////////////////////////  handleSubmitBets
+ const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmitBets = async () => {
+ const handleSubmitBets = async () => {
 
-    if (Object.keys(selectedBets).length === 0) {
-      showToast('لطفا یک شرط را انتخاب کنید ', "warning");
-      return;
-    }
-    setIsSubmitting(true)
+   if (Object.keys(selectedBets).length === 0) {
+     showToast('لطفا یک شرط را انتخاب کنید ', "warning");
+     return;
+   }
+   setIsSubmitting(true)
 
-    const payload = {
-      tournament_id: tournament.id,
-      predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
-        match_id: Number(matchId),
-        selections: bets.map((b) =>
-          b === "1" ? "home" : b === "X" ? "draw" : "away"
-        ),
-      })),
-    };
+   const payload = {
+     tournament_id: tournament.id,
+     predictions: Object.entries(selectedBets).map(([matchId, bets]) => ({
+       match_id: Number(matchId),
+       selections: bets.map((b) =>
+         b === "1" ? "home" : b === "X" ? "draw" : "away"
+       ),
+     })),
+   };
 
-    try {
-      const res = await postUserBet(payload);
-      console.log("Bet submitted successfully:", res);
-      showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", 'success')
-      localStorage.removeItem("selectedBets");
-      setSelectedBets({});
-    } catch (error: any) {
-      showToast(error?.response?.data?.message, "error")
+   try {
+     const res = await postUserBet(payload);
+     console.log("Bet submitted successfully:", res);
+     showToast("پیش‌بینی شما با موفقیت ثبت شد 🎉", 'success')
+     localStorage.removeItem("selectedBets");
+     setSelectedBets({});
+   } catch (error: any) {
+     showToast(error?.response?.data?.message, "error")
 
-      console.error("Error submitting bet:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+     console.error("Error submitting bet:", error);
+   } finally {
+     setIsSubmitting(false);
+   }
+ };
 // 0
   return (
     <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
@@ -197,11 +198,8 @@ export default function TournamentDetail({
           {/* Tournament Quick Info */}
           <div className="flex items-center justify-between bg-white w-full rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
             <div className="flex items-center gap-3 md:gap-3 text-[11px] text-center">
-            
               <div className="flex flex-col">
-                <span className=" text-gray-500">
-                  تعداد مسابقات
-                </span>
+                <span className=" text-gray-500">تعداد مسابقات</span>
                 <span className="text-xs md:text-base font-semibold text-gray-900">
                   {tournament.matches_count} مسابقه
                 </span>
@@ -211,9 +209,7 @@ export default function TournamentDetail({
                 <>
                   <div className="w-px h-6 md:h-8 bg-gray-300"></div>
                   <div className="flex flex-col">
-                    <span className=" text-gray-500">
-                      نوع ورزش
-                    </span>
+                    <span className=" text-gray-500">نوع ورزش</span>
                     <span className="text-xs md:text-base font-semibold text-gray-900 mt-0.5">
                       {tournament.sport_type}
                     </span>
@@ -222,9 +218,7 @@ export default function TournamentDetail({
               )}
               <div className="w-px h-6 md:h-8 bg-gray-300"></div>
               <div className="flex flex-col">
-                <span className=" text-gray-500">
-                  تعداد شرکت کنندگان
-                </span>
+                <span className=" text-gray-500">تعداد شرکت کنندگان</span>
                 <span className="text-xs md:text-base font-semibold text-gray-900">
                   15000
                 </span>
@@ -255,48 +249,6 @@ export default function TournamentDetail({
 
         {/* Tournament Header */}
         <div className="bg-white rounded-lg mt-4 md:mt-6 p-3 md:p-6 lg:p-8 shadow-sm">
-          {/* Countdown */}
-          <div className="mb-4 md:mb-6 ">
-            {isExpired ? (
-              <div className="bg-red-500 text-white p-3 md:p-4 rounded text-center text-sm md:text-base">
-                <span className="font-semibold">
-                  تورنمنت به پایان رسیده است
-                </span>
-              </div>
-            ) : (
-              <div className="bg-cool-gray-dark text-white p-3 md:p-4 rounded-lg text-center shadow-custom">
-                <div className="text-xs md:text-sm mb-2 md:mb-3 ">
-                  زمان باقی‌مانده:
-                </div>
-                <div className="flex justify-center items-center gap-1.5 md:gap-3 text-[10px] md:text-sm">
-                  {timeLeft.days > 0 && (
-                    <>
-                      <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
-                        {formatNumber(timeLeft.days)}
-                      </div>
-                      <span>روز</span>
-                      <span>:</span>
-                    </>
-                  )}
-                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
-                    {formatNumber(timeLeft.hours)}
-                  </div>
-                  <span>ساعت</span>
-                  <span>:</span>
-                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
-                    {formatNumber(timeLeft.minutes)}
-                  </div>
-                  <span>دقیقه</span>
-                  <span>:</span>
-                  <div className="bg-deep-blue-light px-1.5 md:px-3 py-1 md:py-1.5 rounded text-xs md:text-base font-semibold">
-                    {formatNumber(timeLeft.seconds)}
-                  </div>
-                  <span>ثانیه</span>
-                </div>
-              </div>
-            )}
-          </div>
-
           {/* Title */}
           <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
             <svg
@@ -305,11 +257,20 @@ export default function TournamentDetail({
             >
               <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
             </svg>
-            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900">
+            <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 flex items-center gap-1 ">
               {tournament.title}
+              <img
+                src={getTeamFlag(matches[1].home_team)}
+                alt={`${matches[0].home_team} flag`}
+                className="w-6 h-5 md:w-7 md:h-6 object-cover rounded-sm"
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                }}
+              />
             </h1>
           </div>
-
+          {/* Countdown */}
+          <RemainingTime isExpired={isExpired} timeLeft={timeLeft} />
           {/* Prizes */}
           {tournament.prizes && (
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
@@ -394,6 +355,18 @@ export default function TournamentDetail({
                     <span className="text-sm md:text-base text-[#808080]">
                       {formatDateTime(match.start_time)}
                     </span>
+                    <button className="mr-auto">
+                      <span className="fill-deep-blue">
+                        <svg
+                          viewBox="0 0 16 16"
+                          focusable="false"
+                          role="img"
+                          className="size-5 "
+                        >
+                          <path d="M10.4 10.03h1.2c.2 0 .4-.21.4-.42V5.13c0-.22-.2-.43-.4-.43h-1.2c-.2 0-.4.21-.4.43V9.6c0 .21.2.42.4.42Zm3 0h1.2c.2 0 .4-.21.4-.42V1.93c0-.22-.2-.43-.4-.43h-1.2c-.2 0-.4.21-.4.43V9.6c0 .21.2.42.4.42Zm-9 0h1.2c.2 0 .4-.21.4-.42V7.26c0-.21-.2-.43-.4-.43H4.4c-.2 0-.4.22-.4.43v2.35c0 .21.2.42.4.42Zm3 0h1.2c.2 0 .4-.21.4-.42V2.99c0-.21-.2-.42-.4-.42H7.4c-.2 0-.4.21-.4.42v6.62c0 .21.2.42.4.42Zm8.1 2.14H2V2.03c0-.3-.22-.53-.5-.53h-1c-.28 0-.5.24-.5.53v11.2c0 .6.45 1.07 1 1.07h14.5c.28 0 .5-.24.5-.53V12.7c0-.3-.22-.53-.5-.53Z"></path>
+                        </svg>
+                      </span>
+                    </button>
                   </div>
                   <ul className="font-semibold text-sm md:text-lg lg:text-xl space-y-2 md:space-y-3">
                     <li className="ml-2 md:ml-3 flex items-center gap-2 md:gap-3">
@@ -511,7 +484,7 @@ export default function TournamentDetail({
             </button> */}
             <Button
               onClick={handleSubmitBets}
-              // disabled={!allSelected}
+              disabled={!allSelected}
               loading={isSubmitting}
               text="ثبت برگزاری"
             />

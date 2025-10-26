@@ -31,9 +31,9 @@ export default function TournamentsClient() {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="bg-cool-gray min-h-screen">
+    <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray min-h-screen">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8 py-4 md:py-6 lg:py-8">
-        <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
+        <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-4 lg:gap-6">
           {tournaments.map((tournament) => (
             <TournamentCard key={tournament.id} tournament={tournament} />
           ))}
