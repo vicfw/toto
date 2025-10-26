@@ -1,19 +1,13 @@
-import { HydrationBoundary, dehydrate, QueryClient } from "@tanstack/react-query";
-import { getActiveTournaments } from "@/src/lib/getActiveTournaments";
-import TournamentsClient from "@/components/TournamentsClient/index";
+"use client";
 
-export default async function Page() {
-  const queryClient = new QueryClient();
+import { Suspense } from "react";
+import AuthWrapper from "@/components/AuthWrapper";
+import Loader from "@/components/App/Loader";
 
-  // prefetch سمت سرور
-  await queryClient.prefetchQuery({
-    queryKey: ["active-tournaments"],
-    queryFn: getActiveTournaments,
-  });
-
+export default function Page() {
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <TournamentsClient />
-    </HydrationBoundary>
+    <Suspense fallback={<Loader />}>
+      <AuthWrapper />
+    </Suspense>
   );
 }
