@@ -51,7 +51,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
 
   return (
     <li>
-      <div className="flex flex-col bg-white rounded-lg p-3 md:p-6 lg:p-8 shadow-sm">
+      <div className="flex flex-col bg-white rounded-xl p-3 xl:p-5 shadow-sm">
         {/* Countdown */}
         <RemainingTime isExpired={isExpired} timeLeft={timeLeft} />
 
@@ -62,11 +62,11 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
               viewBox="0 0 32 32"
               focusable="false"
               role="img"
-              className="size-5 md:size-6 lg:size-7 text-deep-blue"
+              className="size-5 xl:size-6 xl:size-7 text-deep-blue"
             >
               <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
             </svg>
-            <span className="pr-2 md:pr-3 text-base md:text-lg lg:text-xl font-medium text-gray-900">
+            <span className="pr-2 xl:pr-3 text-base xl:text-xl xl:text-xl font-medium text-gray-900">
               {tournament.title}
             </span>
           </div>
@@ -75,61 +75,61 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
 
         {/* Prizes Section */}
         {tournament.prizes && (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
-              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
+            <div className="bg-gray-50 border border-gray-200 rounded-xl p-3 ">
+              <div className="flex items-center gap-2 xl:gap-3 mb-3 xl:mb-4">
                 <svg
                   viewBox="0 0 24 24"
-                  className="w-4 h-4 md:w-5 md:h-5 text-warm-gold-light"
+                  className="w-4 h-4 xl:w-5 xl:h-5 text-warm-gold-light"
                 >
                   <path
                     fill="currentColor"
                     d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
                   />
                 </svg>
-                <span className="text-sm md:text-base font-semibold text-deep-blue">
+                <span className="text-sm xl:text-base font-semibold text-deep-blue">
                   جوایز تورنمنت
                 </span>
               </div>
-              <div className="grid grid-cols-3 gap-2 md:gap-3 text-[10px]">
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
+              <div className="grid grid-cols-3 gap-2  text-[10px]">
+                <div className="bg-white rounded-xl p-2 xl:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     اول
                   </div>
-                  <div className="font-semibold text-gray-900  md:text-sm">
+                  <div className="font-semibold text-gray-900  xl:text-xs">
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
                     دلار
                   </div>
-                  <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500  xl:text-sm mt-1 hidden xl:block">
                     {tournament.prizes.first.label}
                   </div>
                 </div>
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
+                <div className="bg-white rounded-xl p-2 xl:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     دوم
                   </div>
-                  <div className="font-semibold text-gray-900  md:text-sm">
+                  <div className="font-semibold text-gray-900  xl:text-xs">
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
                     دلار
                   </div>
-                  <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500  xl:text-sm mt-1 hidden xl:block">
                     {tournament.prizes.second.label}
                   </div>
                 </div>
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold  md:text-sm mb-1 md:mb-2">
+                <div className="bg-white rounded-xl p-2 xl:p-3 text-center border border-gray-200 shadow-sm">
+                  <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     سوم
                   </div>
-                  <div className="font-semibold text-gray-900  md:text-sm">
+                  <div className="font-semibold text-gray-900  xl:text-xs">
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
                     دلار
                   </div>
-                  <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
+                  <div className="text-gray-500 text-xs xl:text-sm mt-1 hidden xl:block">
                     {tournament.prizes.third.label}
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
 
         {/* Button */}
           <Link href={`/tournament/${tournament.id}`} className="block w-full mt-3">
-            <button className="w-full bg-deep-blue text-white py-2.5 md:py-3 text-sm md:text-base rounded-lg font-semibold hover:bg-deep-blue-dark transition-colors touch-manipulation">
+            <button className="w-full bg-deep-blue text-white py-2.5 xl:py-3 text-sm xl:text-base rounded-xl font-semibold hover:bg-deep-blue-dark transition-colors touch-manipulation">
               مشاهده مسابقات
             </button>
           </Link>
