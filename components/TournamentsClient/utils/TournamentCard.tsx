@@ -138,7 +138,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
 
         {/* Button */}
         <Link
-          href={`/tournament/${tournament.id}`}
+          href={`/play/tournament/${tournament.id}`}
           className="block w-full mt-3"
         >
           <button className="w-full bg-deep-blue text-white py-2.5 xl:py-3 text-sm xl:text-base rounded-xl font-semibold hover:bg-deep-blue-dark transition-colors touch-manipulation">

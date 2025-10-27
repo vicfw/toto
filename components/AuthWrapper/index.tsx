@@ -32,7 +32,7 @@ export default function AuthWrapper() {
             hall: "54564",
             login: "testtttt",
           });
-          router.replace(`/?${testParams.toString()}`);
+          router.replace(`/play/?${testParams.toString()}`);
           return;
         }
 

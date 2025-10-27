@@ -1,13 +1,5 @@
-"use client";
-
-import { Suspense } from "react";
-import AuthWrapper from "@/components/AuthWrapper";
-import Loader from "@/components/App/Loader";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return (
-    <Suspense fallback={<Loader />}>
-      <AuthWrapper />
-    </Suspense>
-  );
+  return redirect("/play");
 }
