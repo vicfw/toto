@@ -39,7 +39,6 @@ export default function TournamentDetail({
     setTotalPrice(price);
   }, [selectedBets, tournament?.line_coefficient]);
 
-
   // Load bets from localStorage on mount
   useEffect(() => {
     const savedBets = localStorage.getItem("selectedBets");
@@ -451,10 +450,11 @@ export default function TournamentDetail({
                       <li key={betOption}>
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
-                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${selectedBets[match.id]?.includes(betOption)
+                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
+                            selectedBets[match.id]?.includes(betOption)
                               ? "bg-deep-blue text-white shadow-md border border-transparent"
                               : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
-                            }`}
+                          }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
                             {betOption}
@@ -463,8 +463,8 @@ export default function TournamentDetail({
                             {betOption === "1"
                               ? match.percent_1
                               : betOption === "X"
-                                ? match.percent_X
-                                : match.percent_2}
+                              ? match.percent_X
+                              : match.percent_2}
                             %
                           </span>
                         </button>

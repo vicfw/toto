@@ -31,12 +31,16 @@ body {
   --foreground: #171717;
 } */
 
+button {
+  cursor: pointer;
+}
+
 @theme inline {
   --color-white: #ffffff;
   --color-deep-blue: #093453;
   --color-ice-blue: #eff6ff;
   --color-ocean-blue: #007290;
-  --color-accent: #10B981;
+  --color-accent: #10b981;
 
   --color-warm-gold: #b58c46;
   --color-sky-blue: #6dbae7;
@@ -51,8 +55,8 @@ body {
   --color-sky-blue-light: #cae7f7;
   --color-sky-blue-dark: #4a9fd1;
 
-  --color-cool-gray-light: #D6DDE2;
-  --color-cool-gray-dark: #ADBBC6;
+  --color-cool-gray-light: #d6dde2;
+  --color-cool-gray-dark: #adbbc6;
   --shadow-custom: 0 0px 0.3125rem rgba(0, 0, 0, 0.1);
 }
 :root {
