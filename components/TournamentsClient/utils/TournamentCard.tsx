@@ -95,7 +95,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                   <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     اول
                   </div>
-                  <div className="font-semibold text-gray-900  xl:text-xs">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
@@ -109,7 +109,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                   <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     دوم
                   </div>
-                  <div className="font-semibold text-gray-900  xl:text-xs">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
@@ -123,7 +123,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                   <div className="text-deep-blue font-bold  xl:text-sm mb-1 xl:mb-2">
                     سوم
                   </div>
-                  <div className="font-semibold text-gray-900  xl:text-xs">
+                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
