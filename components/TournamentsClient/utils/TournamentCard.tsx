@@ -99,7 +99,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                    دلار
                   </div>
                   <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
                     {tournament.prizes.first.label}
@@ -113,7 +113,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                    دلار
                   </div>
                   <div className="text-gray-500  md:text-sm mt-1 hidden md:block">
                     {tournament.prizes.second.label}
@@ -127,7 +127,7 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    ریال
+                    دلار
                   </div>
                   <div className="text-gray-500 text-xs md:text-sm mt-1 hidden md:block">
                     {tournament.prizes.third.label}

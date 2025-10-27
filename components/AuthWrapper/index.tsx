@@ -28,7 +28,7 @@ export default function AuthWrapper() {
         // For testing: automatically add test query parameters if missing
         if (!token || !hall || !login) {
           const testParams = new URLSearchParams({
-            token: "efc105cf034456a117c24a6abe796869",
+            token: "09862456028f1938ad769b62720f6c9d",
             hall: "54564",
             login: "testtttt",
           });

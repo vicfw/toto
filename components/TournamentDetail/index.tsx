@@ -158,10 +158,17 @@ export default function TournamentDetail({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitBets = async () => {
-    if (Object.keys(selectedBets).length === 0) {
-      showToast("لطفا یک شرط را انتخاب کنید ", "warning");
+
+    const filteredBets = Object.fromEntries(
+      Object.entries(selectedBets).filter(([_, bets]) => bets.length > 0)
+    );
+
+
+    if (Object.keys(filteredBets).length === 0) {
+      showToast("لطفا حداقل یک شرط را انتخاب کنید.", "warning");
       return;
     }
+
     setIsSubmitting(true);
 
     const payload = {
@@ -204,11 +211,11 @@ export default function TournamentDetail({
 
   useEffect(() => {
     let isMounted = true;
-  
+
     if (isMounted) fetchBalance();
-  
+
     const interval = setInterval(fetchBalance, 3000);
-  
+
     return () => {
       isMounted = false;
       clearInterval(interval);
@@ -321,7 +328,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.first.label}
@@ -335,7 +342,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500  mt-1 hidden md:block">
                     {tournament.prizes.second.label}
@@ -349,7 +356,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.third.label}
@@ -433,11 +440,10 @@ export default function TournamentDetail({
                       <li key={betOption}>
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
-                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${
-                            selectedBets[match.id]?.includes(betOption)
-                              ? "bg-deep-blue text-white shadow-md border border-transparent"
-                              : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
-                          }`}
+                          className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${selectedBets[match.id]?.includes(betOption)
+                            ? "bg-deep-blue text-white shadow-md border border-transparent"
+                            : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                            }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
                             {betOption}
@@ -446,8 +452,8 @@ export default function TournamentDetail({
                             {betOption === "1"
                               ? match.percent_1
                               : betOption === "X"
-                              ? match.percent_X
-                              : match.percent_2}
+                                ? match.percent_X
+                                : match.percent_2}
                             %
                           </span>
                         </button>
@@ -498,7 +504,7 @@ export default function TournamentDetail({
               <span className="text-xs text-gray-600">موجودی فعلی شما:</span>
               <span className=" font-bold text-deep-blue text-xs">
                 {balance
-                  ? `${parseFloat(balance).toLocaleString("fa-IR")} ریال`
+                  ? `${parseFloat(balance).toLocaleString("fa-IR")} دلار`
                   : <span className=""> در حال دریافت...</span>}
               </span>
             </div>

@@ -254,7 +254,7 @@ export default function Cart({
                       {parseFloat(
                         tournament.prizes.first.amount
                       ).toLocaleString("fa-IR")}{" "}
-                      ریال
+                      دلار
                     </div>
                     <div className="text-gray-500 text-xs mt-1">
                       {tournament.prizes.first.label}
@@ -268,7 +268,7 @@ export default function Cart({
                       {parseFloat(
                         tournament.prizes.second.amount
                       ).toLocaleString("fa-IR")}{" "}
-                      ریال
+                      دلار
                     </div>
                     <div className="text-gray-500 text-xs mt-1">
                       {tournament.prizes.second.label}
@@ -282,7 +282,7 @@ export default function Cart({
                       {parseFloat(
                         tournament.prizes.third.amount
                       ).toLocaleString("fa-IR")}{" "}
-                      ریال
+                      دلار
                     </div>
                     <div className="text-gray-500 text-xs mt-1">
                       {tournament.prizes.third.label}
