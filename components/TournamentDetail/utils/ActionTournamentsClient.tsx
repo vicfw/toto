@@ -81,7 +81,8 @@ export default function ActionTournamentsClient({
           <div className="text-left flex items-center justify-between w-full ">
             <div className=" text-gray-600">قیمت کل</div>
             <div className="text-lg md:text-xl font-bold text-deep-blue">
-              {totalPrice.toFixed(2).toLocaleString("fa-IR")}
+              {/* {totalPrice.toFixed(2).toLocaleString("fa-IR")} */}
+              {totalPrice.toLocaleString("fa-IR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               <span className="text-xs text-gray-600">دلار</span>
             </div>
           </div>
