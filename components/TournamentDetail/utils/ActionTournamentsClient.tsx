@@ -8,18 +8,24 @@ interface ActionTournamentsClientProps {
   matchesWithSelections: number ;
   totalMatches: number;
   totalSelections: number;
+  totalLines: number;
+  totalPrice: number;
   balance: string;
   isSubmitting: boolean;
   handleReset: () => void;
   handleRandom: () => void;
   handleSubmitBets: () => void;
+  line_coefficient: string;
 }
 export default function ActionTournamentsClient({
   matchesWithSelections,
   totalMatches,
   totalSelections,
   balance,
+  totalLines,
+  totalPrice,
   isSubmitting,
+  line_coefficient,
   handleReset,
   handleRandom,
   handleSubmitBets,
@@ -49,14 +55,43 @@ export default function ActionTournamentsClient({
               </span>
             </div>
           </div>
-          <div className="text-left">
+          {/* <div className="text-left">
             <div className="text-xs md:text-sm text-gray-600">
               تعداد گزینه‌های انتخابی
             </div>
             <div className="text-lg md:text-xl font-bold text-deep-blue">
               {totalSelections}
             </div>
-          </div>
+          </div> */}
+
+          {/* line_coefficient */}
+            <div className="text-left">
+              <div className="text-xs md:text-sm text-gray-600">
+                ضریب خط
+              </div>
+              <div className="text-lg md:text-xl font-bold text-deep-blue">
+                {line_coefficient}
+              </div>
+            </div>
+            {/* totalLines */}
+            <div className="text-left">
+              <div className="text-xs md:text-sm text-gray-600">
+                تعداد خطوط
+              </div>
+              <div className="text-lg md:text-xl font-bold text-deep-blue">
+                {totalLines}
+              </div>
+            </div>
+            {/* totalPrice */}
+            <div className="text-left">
+              <div className="text-xs md:text-sm text-gray-600">
+                قیمت کل
+              </div>
+              <div className="text-lg md:text-xl font-bold text-deep-blue">
+                {totalPrice.toFixed(2).toLocaleString("fa-IR")} 
+                <span className="text-xs text-gray-600">دلار</span>
+              </div>
+            </div>
         </div>
         <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3  border border-gray-200 mt-2">
           <span className="text-xs text-gray-600">موجودی فعلی شما:</span>

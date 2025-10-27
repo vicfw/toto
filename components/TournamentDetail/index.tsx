@@ -22,7 +22,25 @@ export default function TournamentDetail({
   const [selectedBets, setSelectedBets] = useState<{
     [matchId: number]: ("1" | "X" | "2")[];
   }>({});
-
+  const [totalLines, setTotalLines] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(() => {
+    if (!tournament?.line_coefficient) return;
+  
+    const lines = Object.values(selectedBets).reduce((acc, bets) => {
+      if (bets.length > 0) {
+        return acc * bets.length;
+      }
+      return acc;
+    }, 1);
+  
+    const price = lines * parseFloat(tournament.line_coefficient);
+  
+    setTotalLines(lines);
+    setTotalPrice(price);
+  }, [selectedBets, tournament?.line_coefficient]);
+  
+  
   // Load bets from localStorage on mount
   useEffect(() => {
     const savedBets = localStorage.getItem("selectedBets");
@@ -223,7 +241,7 @@ export default function TournamentDetail({
     };
   }, []);
   return (
-    <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[160px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
+    <div className="bg-linear-to-b from-deep-blue-light from-20% to-cool-gray   min-h-screen pb-[204px] sm:pb-[80px] md:pb-4 lg:pb-6  ">
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 bg-deep-blue-light">
         {/* Back Button and Tournament Info */}
         <div className="mt-2 sm:mt-4 mb-3 md:mb-4 lg:mb-6 flex items-center justify-between gap-2">
@@ -476,6 +494,9 @@ export default function TournamentDetail({
           handleReset={handleReset}
           handleRandom={handleRandom}
           handleSubmitBets={handleSubmitBets}
+          line_coefficient={tournament.line_coefficient}
+          totalLines={totalLines || 0}
+          totalPrice={totalPrice || 0}
         />
 
 
