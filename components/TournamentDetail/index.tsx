@@ -5,10 +5,9 @@ import { useRouter } from "next/navigation";
 import { Tournament, Match } from "@/src/lib/getTournamentById";
 import { postUserBet } from "@/src/lib/postBet";
 import { showToast } from "@/src/providers/ToastProvider";
-import Button from "../App/Button";
+import ActionTournamentsClient from "./utils/ActionTournamentsClient";
 import RemainingTime from "../RemainingTime";
 import { getUserBalance } from "@/src/lib/getBalance";
-import ActionTournamentsClient from "./utils/ActionTournamentsClient";
 interface TournamentDetailProps {
   tournament: Tournament;
   matches: Match[];
@@ -26,21 +25,21 @@ export default function TournamentDetail({
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     if (!tournament?.line_coefficient) return;
-  
+
     const lines = Object.values(selectedBets).reduce((acc, bets) => {
       if (bets.length > 0) {
         return acc * bets.length;
       }
       return acc;
     }, 1);
-  
+
     const price = lines * parseFloat(tournament.line_coefficient);
-  
+
     setTotalLines(lines);
     setTotalPrice(price);
   }, [selectedBets, tournament?.line_coefficient]);
-  
-  
+
+
   // Load bets from localStorage on mount
   useEffect(() => {
     const savedBets = localStorage.getItem("selectedBets");
@@ -177,17 +176,10 @@ export default function TournamentDetail({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmitBets = async () => {
-
-    const filteredBets = Object.fromEntries(
-      Object.entries(selectedBets).filter(([_, bets]) => bets.length > 0)
-    );
-
-
-    if (Object.keys(filteredBets).length === 0) {
-      showToast("لطفا حداقل یک شرط را انتخاب کنید.", "warning");
+    if (Object.keys(selectedBets).length === 0) {
+      showToast("لطفا یک شرط را انتخاب کنید ", "warning");
       return;
     }
-
     setIsSubmitting(true);
 
     const payload = {
@@ -347,7 +339,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>دلار</span>
+                    <span>ریال</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.first.label}
@@ -361,7 +353,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>دلار</span>
+                    <span>ریال</span>
                   </div>
                   <div className="text-gray-500  mt-1 hidden md:block">
                     {tournament.prizes.second.label}
@@ -375,7 +367,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>دلار</span>
+                    <span>ریال</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.third.label}
@@ -460,8 +452,8 @@ export default function TournamentDetail({
                         <button
                           onClick={() => handleBetSelect(match.id, betOption)}
                           className={` w-full px-3 md:px-3 lg:px-4 py-[3px] sm:py-2 md:py-2.5 rounded-lg cursor-pointer transition-all duration-200 text-center   ${selectedBets[match.id]?.includes(betOption)
-                            ? "bg-deep-blue text-white shadow-md border border-transparent"
-                            : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
+                              ? "bg-deep-blue text-white shadow-md border border-transparent"
+                              : "bg-gray-50 text-deep-blue border border-gray-300 hover:border-deep-blue hover:bg-gray-50"
                             }`}
                         >
                           <span className="block font-semibold text-xs md:text-base opacity-80">
@@ -484,7 +476,6 @@ export default function TournamentDetail({
             ))}
           </ul>
         </div>
-
         <ActionTournamentsClient
           isSubmitting={isSubmitting}
           matchesWithSelections={matchesWithSelections}
@@ -498,9 +489,6 @@ export default function TournamentDetail({
           totalLines={totalLines || 0}
           totalPrice={totalPrice || 0}
         />
-
-
-
       </div>
     </div>
   );
