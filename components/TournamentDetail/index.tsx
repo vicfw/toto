@@ -339,7 +339,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.first.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.first.label}
@@ -353,7 +353,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.second.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500  mt-1 hidden md:block">
                     {tournament.prizes.second.label}
@@ -367,7 +367,7 @@ export default function TournamentDetail({
                     {parseFloat(tournament.prizes.third.amount).toLocaleString(
                       "fa-IR"
                     )}{" "}
-                    <span>ریال</span>
+                    <span>دلار</span>
                   </div>
                   <div className="text-gray-500 mt-1 hidden md:block">
                     {tournament.prizes.third.label}
