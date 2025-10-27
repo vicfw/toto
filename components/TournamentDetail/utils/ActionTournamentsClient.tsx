@@ -103,6 +103,7 @@ export default function ActionTournamentsClient({
         <Button
           onClick={handleSubmitBets}
           // disabled={!allSelected}
+          // 0
           loading={isSubmitting}
           text="ثبت برگزاری"
         />
