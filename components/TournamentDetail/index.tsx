@@ -8,6 +8,7 @@ import { showToast } from "@/src/providers/ToastProvider";
 import ActionTournamentsClient from "./utils/ActionTournamentsClient";
 import RemainingTime from "../RemainingTime";
 import { getUserBalance } from "@/src/lib/getBalance";
+import PrizeCard from "./utils/PrizeCard";
 interface TournamentDetailProps {
   tournament: Tournament;
   matches: Match[];
@@ -240,23 +241,14 @@ export default function TournamentDetail({
           <div className="flex items-center justify-between bg-white w-full rounded-lg px-3 md:px-4 py-2 md:py-2.5 shadow-sm">
             <div className="flex items-center gap-3 md:gap-3 text-[11px] text-center">
               <div className="flex flex-col">
-                <span className=" text-gray-500">تعداد مسابقات</span>
-                <span className="text-xs md:text-base font-semibold text-gray-900">
-                  {tournament.matches_count} مسابقه
+                <span className=" text-gray-500">موجودی فعلی شما</span>
+                <span className="text-xs md:text-sm font-semibold text-gray-900">
+                  {balance
+                    ? `${parseFloat(balance).toLocaleString("fa-IR")} دلار`
+                    : "در حال دریافت..."}
                 </span>
               </div>
 
-              {tournament.sport_type && (
-                <>
-                  <div className="w-px h-6 md:h-8 bg-gray-300"></div>
-                  <div className="flex flex-col">
-                    <span className=" text-gray-500">نوع ورزش</span>
-                    <span className="text-xs md:text-base font-semibold text-gray-900 mt-0.5">
-                      {tournament.sport_type}
-                    </span>
-                  </div>
-                </>
-              )}
               <div className="w-px h-6 md:h-8 bg-gray-300"></div>
               <div className="flex flex-col">
                 <span className=" text-gray-500">تعداد شرکت کنندگان</span>
@@ -288,6 +280,46 @@ export default function TournamentDetail({
           </div>
         </div>
 
+        {/* Prizes */}
+        {tournament.prizes && (
+          <div className="bg-white border-2 border-warm-gold-light/30 rounded-xl p-3 sm:p-4 md:p-6 shadow-lg">
+            <div className="flex items-center gap-2 md:gap-3 mb-3 sm:mb-4 md:mb-6">
+              <div className="p-1.5 sm:p-2 bg-linear-to-br from-warm-gold-light to-warm-gold rounded-lg shadow-md">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+                  />
+                </svg>
+              </div>
+              <span className="text-base sm:text-lg md:text-2xl font-extrabold text-deep-blue">
+                جوایز تورنمنت
+              </span>
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+              {/* First Place */}
+              <PrizeCard
+                position={1}
+                amount={tournament.prizes.first.amount}
+                label={tournament.prizes.first.label}
+              />
+              <PrizeCard
+                position={2}
+                amount={tournament.prizes.second.amount}
+                label={tournament.prizes.second.label}
+              />
+              <PrizeCard
+                position={3}
+                amount={tournament.prizes.third.amount}
+                label={tournament.prizes.third.label}
+              />
+            </div>
+          </div>
+        )}
+
         {/* Tournament Header */}
         <div className="bg-white rounded-lg mt-4 md:mt-6 p-3 md:p-6 lg:p-8 shadow-sm">
           {/* Title */}
@@ -312,69 +344,6 @@ export default function TournamentDetail({
           </div>
           {/* Countdown */}
           <RemainingTime isExpired={isExpired} timeLeft={timeLeft} />
-          {/* Prizes */}
-          {tournament.prizes && (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 md:p-4">
-              <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-4 h-4 md:w-5 md:h-5 text-warm-gold-light"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
-                  />
-                </svg>
-                <span className="text-sm md:text-base font-semibold text-deep-blue">
-                  جوایز تورنمنت
-                </span>
-              </div>
-              <div className="grid grid-cols-3 gap-2 md:gap-3 text-[10px] md:text-sm">
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold mb-1 md:mb-2">
-                    اول
-                  </div>
-                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
-                    {parseFloat(tournament.prizes.first.amount).toLocaleString(
-                      "fa-IR"
-                    )}{" "}
-                    <span>دلار</span>
-                  </div>
-                  <div className="text-gray-500 mt-1 hidden md:block">
-                    {tournament.prizes.first.label}
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold  mb-1 md:mb-2">
-                    دوم
-                  </div>
-                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
-                    {parseFloat(tournament.prizes.second.amount).toLocaleString(
-                      "fa-IR"
-                    )}{" "}
-                    <span>دلار</span>
-                  </div>
-                  <div className="text-gray-500  mt-1 hidden md:block">
-                    {tournament.prizes.second.label}
-                  </div>
-                </div>
-                <div className="bg-white rounded-lg p-2 md:p-3 text-center border border-gray-200 shadow-sm">
-                  <div className="text-deep-blue font-bold  mb-1 md:mb-2">
-                    سوم
-                  </div>
-                  <div className="font-semibold text-gray-900 flex flex-col sm:flex-row justify-center">
-                    {parseFloat(tournament.prizes.third.amount).toLocaleString(
-                      "fa-IR"
-                    )}{" "}
-                    <span>دلار</span>
-                  </div>
-                  <div className="text-gray-500 mt-1 hidden md:block">
-                    {tournament.prizes.third.label}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </div>
       <div className="max-w-4xl mx-auto p-3 sm:p-4 md:p-6 lg:p-8 ">
@@ -481,7 +450,6 @@ export default function TournamentDetail({
           matchesWithSelections={matchesWithSelections}
           totalMatches={totalMatches}
           totalSelections={totalSelections}
-          balance={balance || "0.00"}
           handleReset={handleReset}
           handleRandom={handleRandom}
           handleSubmitBets={handleSubmitBets}

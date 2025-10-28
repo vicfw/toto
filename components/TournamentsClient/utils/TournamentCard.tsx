@@ -66,9 +66,14 @@ export default function TournamentCard({ tournament }: TournamentCardProps) {
             >
               <path d="M16 0a16 16 0 100 32 16 16 0 000-32zm1 5l5-3 2 1 2 2 1 1 1 1v1l-1 4-5 2-5-4zM4 7l1-1 1-1 2-2 2-1 5 3v5l-5 4-5-2-1-4V7zm0 17l-1-1-1-2v-1l-1-1v-2l3-4 6 2 1 7-2 3zm16 7h-2-1a14 14 0 01-2 0h-1-1l-3-5 2-4h8l2 4zm11-12l-1 1v1l-1 2-1 1-5 1-2-3 1-7 6-2 3 4v2z"></path>
             </svg>
-            <span className="pr-2 xl:pr-3 text-base  xl:text-xl font-medium text-gray-900">
-              {tournament.title}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-base  xl:text-xl font-medium text-gray-900">
+                {tournament.title}
+              </span>
+              <span className="text-xs xl:text-sm text-gray-500">
+                ({tournament.matches_count} مسابقه)
+              </span>
+            </div>
           </div>
         </div>
 

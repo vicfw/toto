@@ -28,10 +28,11 @@ export default function AuthWrapper() {
         // For testing: automatically add test query parameters if missing
         if (!token || !hall || !login) {
           const testParams = new URLSearchParams({
-            token: "09862456028f1938ad769b62720f6c9d",
+            token: "76635a6e3f9a09f3946454b60d156e70",
             hall: "54564",
             login: "testtttt",
           });
+
           router.replace(`/play/?${testParams.toString()}`);
           return;
         }

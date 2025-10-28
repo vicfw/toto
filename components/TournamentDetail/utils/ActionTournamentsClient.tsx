@@ -10,7 +10,6 @@ interface ActionTournamentsClientProps {
   totalSelections: number;
   totalLines: number;
   totalPrice: number;
-  balance: string;
   isSubmitting: boolean;
   handleReset: () => void;
   handleRandom: () => void;
@@ -21,7 +20,6 @@ export default function ActionTournamentsClient({
   matchesWithSelections,
   totalMatches,
   totalSelections,
-  balance,
   totalLines,
   totalPrice,
   isSubmitting,
@@ -75,16 +73,7 @@ export default function ActionTournamentsClient({
             </span>
           </div>
         </div>
-        <div className="flex items-center justify-between bg-gray-50 rounded-lg p-3  border border-gray-200 mt-2">
-          <span className="text-xs text-gray-600">موجودی فعلی شما:</span>
-          <span className=" font-bold text-accent text-xs">
-            {balance ? (
-              `${parseFloat(balance).toLocaleString("fa-IR")} دلار`
-            ) : (
-              <span className=""> در حال دریافت...</span>
-            )}
-          </span>
-        </div>
+        {/* Balance moved to header */}
       </div>
 
       <div className="px-4 pb-4 pt-2 md:px-0 md:pb-0 flex gap-2 md:gap-3">
