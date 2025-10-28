@@ -6,7 +6,6 @@ export const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-
 api.interceptors.request.use((config) => {
   const token =
     typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
