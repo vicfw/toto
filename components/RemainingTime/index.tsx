@@ -74,7 +74,6 @@ export default function RemainingTime({
         <>
           <div className="bg-[#13496f] text-white p-3 py-2 xl:p-4 rounded-xl text-center shadow-custom">
             <div>
-              <div className="mb-2 xl:mb-3">زمان باقی‌مانده:</div>
               <div className="flex justify-center items-center gap-1.5 text-[10px] xl:text-sm">
                 {timeLeft.days > 0 && (
                   <>
@@ -101,7 +100,7 @@ export default function RemainingTime({
                 <span>ثانیه</span>
               </div>
             </div>
-            <div className="mt-3 xl:mt-4 pt-3 xl:pt-4 border-t border-white/30">
+            <div className="mt-3 xl:mt-4 pt-1 xl:pt-4 border-t border-white/30">
               <div className="flex flex-col items-center justify-center gap-1 xl:gap-2">
                 <span className="text-cool-gray-light font-semibold text-xs xl:text-sm">
                   مهلت شرط‌بندی:
