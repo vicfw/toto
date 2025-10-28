@@ -77,24 +77,24 @@ export default function RemainingTime({
               <div className="flex justify-center items-center gap-1.5 text-[10px] xl:text-sm">
                 {timeLeft.days > 0 && (
                   <>
-                    <div className="bg-ocean-blue px-1.5 xl:px-2 pt-1 pb-0.5 xl:py-1.5 rounded text-xs xl:text-base font-semibold">
+                    <div className="bg-ocean-blue px-1.5 xl:px-1 pt-1 pb-0.5 xl:py-1 rounded text-xs xl:text-base font-semibold">
                       {formatNumber(timeLeft.days)}
                     </div>
                     <span>روز</span>
                     <span>:</span>
                   </>
                 )}
-                <div className="bg-ocean-blue px-1.5 xl:px-2 pt-1 pb-0.5 xl:py-1.5 rounded text-xs xl:text-base font-semibold">
+                <div className="bg-ocean-blue px-1.5 xl:px-1 pt-1 pb-0.5 xl:py-1 rounded text-xs xl:text-base font-semibold">
                   {formatNumber(timeLeft.hours)}
                 </div>
                 <span>ساعت</span>
                 <span>:</span>
-                <div className="bg-ocean-blue px-1.5 xl:px-2 pt-1 pb-0.5 xl:py-1.5 rounded text-xs xl:text-base font-semibold">
+                <div className="bg-ocean-blue px-1.5 xl:px-1 pt-1 pb-0.5 xl:py-1 rounded text-xs xl:text-base font-semibold">
                   {formatNumber(timeLeft.minutes)}
                 </div>
                 <span>دقیقه</span>
                 <span>:</span>
-                <div className="bg-ocean-blue px-1.5 xl:px-2 pt-1 pb-0.5 xl:py-1.5 rounded text-xs xl:text-base font-semibold">
+                <div className="bg-ocean-blue px-1.5 xl:px-1 pt-1 pb-0.5 xl:py-1 rounded text-xs xl:text-base font-semibold">
                   {formatNumber(timeLeft.seconds)}
                 </div>
                 <span>ثانیه</span>
