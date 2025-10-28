@@ -49,7 +49,7 @@ export default function PrizeCard({ position, amount, label }: PrizeCardProps) {
     >
       {/* Medal Icon */}
       <div
-        className={`absolute -top-2 -right-2 md:-top-6 md:-right-6 ${config.iconBg} rounded-full p-1.5 sm:p-2 md:p-3 shadow-lg z-10 animate-bounce cursor-pointer transition-all duration-200`}
+        className={`absolute -top-2 -right-2 md:-top-3 md:-right-3 ${config.iconBg} rounded-full p-1.5 sm:p-2 md:p-1 shadow-lg z-10 animate-bounce cursor-pointer transition-all duration-200`}
       >
         <svg
           viewBox="0 0 24 24"
